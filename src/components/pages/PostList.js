@@ -33,25 +33,29 @@ function PostList() {
   const [PostList, setPostList] = useState(data)
   return (
     <div>
-      <h1>PostList</h1>
-      <div>
+      <div className="post-list">
         {PostList.map((post, index) => {
           return (
             <div className="post-list-container" key={index}>
-              <img
-                src={post.imgurl}
-                alt={post.title}
-                height={150}
-                width={150}
-              />
+              <div className="post-list-image">
+                <img
+                  src={post.imgurl}
+                  alt={post.title}
+                  height={150}
+                  width={150}
+                />
+              </div>
+
               <div className="post-list-data">
-                <h4>{`Author: ${post.author_name}. ${post.date}`}</h4>
-                <h3>{post.title}</h3>
+                <h6>{`Author: ${post.author_name}. ${post.date}`}</h6>
+                <h5>{post.title}</h5>
                 <p>{post.body}</p>
-                <button>like</button>
-                <button>dislike</button>
-                <button>share</button>
-                <button>{post.category}</button>
+                <div>
+                  <button>like</button>
+                  <button>dislike</button>
+                  <button>share</button>
+                  <button>{post.category}</button>
+                </div>
               </div>
             </div>
           )

@@ -1,5 +1,12 @@
+/* * {
+  margin: 0;
+  padding: 0;
+} */
+
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .home-posts {
@@ -7,15 +14,81 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
+  gap: 1px;
+}
+
+@media (max-width: 1024px) {
+  .home-posts {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .post-list-container {
   display: flex;
   flex-direction: row;
-  margin-bottom: 20px;
-  align-items: center;
-  margin-right: 20px;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  /* border-top: 30px; */
 }
 
-/* .post-list-data {
+.recent-post {
+  flex: 7;
+}
+
+.post-list {
+  flex: 5;
+  margin-top: 23px;
+}
+
+.post-list-data {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.post-list-data,
+h6 {
+  margin: 0px;
+  border: 0px;
+  margin-left: 20px;
+}
+
+.navigation {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.navigation-group-1 {
+  display: flex;
+  flex-direction: row;
+}
+
+/* nav {
+  display: block;
+  margin: 20px;
 } */
+
+.navigation-group-2 {
+  display: block;
+  margin: 20px;
+  /* flex-direction: row; */
+  /* justify-content: space-around; */
+  /* gap: 2px; */
+}
+
+.navigation-group-2 a {
+  margin: 20px;
+  text-decoration: none;
+  color: black;
+}
+
+.navigation-group-3 {
+  display: block;
+  margin: 10px;
+}
+
+.navigation-group-3 button {
+  margin: 10px;
+}

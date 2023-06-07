@@ -4,8 +4,7 @@ import PostList from "./PostList"
 
 function Home() {
   return (
-    <>
-      <div>Home</div>
+    <div>
       <h1>Inside Moringa: Stories & Development Experiences</h1>
       <p>
         Subscribe to get the latest Moringa developers stories & other updates
@@ -18,7 +17,7 @@ function Home() {
         <div className="recent-post">{<RecentPost />}</div>
         <div className="post-list">{<PostList />}</div>
       </div>
-    </>
+    </div>
   )
 }
 

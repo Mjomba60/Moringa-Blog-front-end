@@ -14,19 +14,19 @@ function RecentPost() {
 
   const [RecentPost, setRecentPost] = useState(data)
   return (
-    <>
-      <div>RecentPost</div>
+    <div>
+      <h2>RecentPost</h2>
       <div>
-        <img src={FirstImage} alt="motherboard" height={200} width={300} />
-        <h4>{`Auhtor: ${RecentPost.author_name}. ${RecentPost.date}`}</h4>
-        <h3>{RecentPost.title}</h3>
+        <img src={FirstImage} alt="motherboard" height={400} width={600} />
+        <h6>{`Auhtor: ${RecentPost.author_name}. ${RecentPost.date}`}</h6>
+        <h5>{RecentPost.title}</h5>
         <p>{RecentPost.body}</p>
         <button>like</button>
         <button>dislike</button>
         <button>share</button>
         <button>{RecentPost.category}</button>
       </div>
-    </>
+    </div>
   )
 }
 
