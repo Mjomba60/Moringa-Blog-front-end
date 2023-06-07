@@ -1,5 +1,6 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
+import Icon from "../../assets/Icon.png"
 
 function Navbar() {
   const navigate = useNavigate()
@@ -11,23 +12,32 @@ function Navbar() {
   return (
     <div className="navigation">
       <div className="navigation-group-1">
-        <h3>
-          <a href="/" style={{ textDecoration: "none", color: "black" }}>
-            Moringa Blog
-          </a>
-        </h3>
+        <img src={Icon} alt="logo.png" height={20} width={20} />
+        <p>
+          <b>
+            <a
+              href="/"
+              style={{
+                textDecoration: "none",
+                color: "black",
+                // marginLeft: "5px",
+              }}
+            >
+              MORINGA BLOG
+            </a>
+          </b>
+        </p>
       </div>
       <nav className="navigation-group-2">
         <a href="/">Home</a>
-        <a href="/articles">More Articles</a>
+        <a href="/articles">Articles</a>
         <a href="/aboutus">About Us</a>
         <a href="/contactus">Contact Us</a>
+        <button className="add-button" onClick={handleArticleCreate}>
+          +
+        </button>
+        <button className="profile-button">Profile</button>
       </nav>
-
-      <div className="navigation-group-3">
-        <button onClick={handleArticleCreate}>+</button>
-        <button>sign in</button>
-      </div>
     </div>
   )
 }

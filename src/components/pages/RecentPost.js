@@ -18,7 +18,7 @@ function RecentPost() {
       <h2>RecentPost</h2>
       <div>
         <img src={FirstImage} alt="motherboard" height={400} width={600} />
-        <h6>{`Auhtor: ${RecentPost.author_name}. ${RecentPost.date}`}</h6>
+        <h6>{`Author: ${RecentPost.author_name}. ${RecentPost.date}`}</h6>
         <h5>{RecentPost.title}</h5>
         <p>{RecentPost.body}</p>
         <button>like</button>
