@@ -6,16 +6,17 @@ function Navbar() {
   const navigate = useNavigate()
   const location = useLocation()
   const [hasUser, setHasUser] = useState({})
+  const [currentUser, setCurrentUser] = useState(null)
 
   useEffect(() => {
     const user = location.state?.user
     user ? setHasUser(true) : setHasUser(false)
-    // setUserAgain(user)
+    user ? setCurrentUser(user) : setCurrentUser(null)
   })
 
   const handleArticleCreate = (e) => {
     e.preventDefault()
-    navigate("/articles/create")
+    navigate("/articles/create", { state: { user: currentUser } })
   }
 
   const handleSigninClick = (e) => {

@@ -14,7 +14,8 @@ import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"
 import FormControl from "@mui/material/FormControl"
 import Select, { SelectChangeEvent } from "@mui/material/Select"
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
+import { CreateArticlePost } from "../../api/api"
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
@@ -24,26 +25,42 @@ export default function CreateArticle() {
   const [form, setForm] = useState({})
   const [currentUser, setCurrentUser] = useState(null)
   const [hasUser, setHasUser] = useState(false)
+  const [resp, setResponse] = useState(null)
+
   const location = useLocation()
+  const navigate = useNavigate()
+
   useEffect(() => {
     const user = location.state?.user
     console.log(user)
     user ? setCurrentUser(user) : setCurrentUser(null)
     user ? setHasUser(true) : setHasUser(false)
-  })
+  }, [location.state?.user])
+
+  useEffect(() => {
+    if (resp?.status === 200) {
+      console.log(resp.data.id)
+      navigate(`/articles/${resp.data.id}`, {
+        state: { article_data: resp.data, user: currentUser },
+      })
+    }
+    // console.log("in useffect")
+    // console.log(resp)
+  }, [resp])
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    // const data = new FormData(event.currentTarget)
-    console.log(form)
-    console.log(currentUser)
-    const author_name = `${currentUser?.first_name}_${currentUser?.last_name}`
-    setForm({
+
+    const author_name_long = `${currentUser?.first_name}_${currentUser?.last_name}`
+
+    let data_to_send = {
+      author_name: author_name_long,
+      date: new Date().toString(),
       ...form,
-      [author_name]: author_name,
-      // [date]: new Date().toString()
-    })
-    console.log(form)
+    }
+
+    console.log(data_to_send)
+    CreateArticlePost(data_to_send, setResponse)
   }
 
   const onchange = (e) => {
