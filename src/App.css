@@ -247,3 +247,16 @@
 .home-second-text p {
   color: white;
 }
+
+.app-main {
+  padding: 100px;
+}
+
+.article-body {
+  margin-top: 10px;
+  border: rgb(59, 59, 59);
+}
+
+#demo-simple-select-label {
+  margin-top: 5px;
+}
