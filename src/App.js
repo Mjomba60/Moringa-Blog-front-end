@@ -9,6 +9,8 @@ import CreateArticle from "./components/pages/CreateArticle"
 import Profile from "./components/pages/Profile"
 import Footer from "./components/Navigation/Footer"
 import SingleArticle from "./components/pages/SingleArticle"
+import SignIn from "./components/pages/SignIn"
+import SignUp from "./components/pages/SignUp"
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
           <Route path="/contactus" element={<ContactUS />} />
           <Route path="/articles" element={<Articles />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
         </Routes>
       </div>
       <Footer className="app-footer">

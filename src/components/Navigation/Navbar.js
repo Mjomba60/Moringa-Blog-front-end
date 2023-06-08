@@ -1,14 +1,27 @@
-import React from "react"
-import { useNavigate } from "react-router-dom"
+import React, { useEffect, useState } from "react"
+import { useNavigate, useLocation } from "react-router-dom"
 import Icon from "../../assets/Icon.png"
 
 function Navbar() {
   const navigate = useNavigate()
+  const location = useLocation()
+  const [hasUser, setHasUser] = useState({})
+
+  useEffect(() => {
+    const user = location.state?.user
+    user ? setHasUser(true) : setHasUser(false)
+    // setUserAgain(user)
+  })
+
   const handleArticleCreate = (e) => {
     e.preventDefault()
     navigate("/articles/create")
   }
 
+  const handleSigninClick = (e) => {
+    e.preventDefault()
+    navigate("/signin")
+  }
   return (
     <div className="navigation">
       <div className="navigation-group-1">
@@ -36,7 +49,13 @@ function Navbar() {
         <button className="add-button" onClick={handleArticleCreate}>
           +
         </button>
-        <button className="profile-button">Profile</button>
+        {hasUser ? (
+          <button className="profile-button">Profile</button>
+        ) : (
+          <button className="profile-button" onClick={handleSigninClick}>
+            signin
+          </button>
+        )}
       </nav>
     </div>
   )
