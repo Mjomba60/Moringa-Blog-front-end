@@ -37,7 +37,7 @@ function Footer() {
           <b>MORINGA BLOG</b>
         </p>
         <p>
-          <b>ABOUTUS</b>
+          <b>ABOUT US</b>
         </p>
         <p>
           <b>ARTICLES</b>

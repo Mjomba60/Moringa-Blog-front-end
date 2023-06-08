@@ -3,9 +3,15 @@ import React from "react"
 import FirstImage from "../../assets/pexels-athena-2582937.jpg"
 import PostData from "../utils/PostData"
 import { Link } from "react-router-dom"
-import { GetArticleMany } from "../../api/api"
+import { GetArticleMany } from "../../api/api.js"
 
 function Articles() {
+  const [articles, setArticles] = useState([])
+  useEffect(() => {
+    fetch("http://localhost:9292/articles")
+        .then((r) => r.json())
+        .then(data => setArticles(data));
+  },[])
   const data = [
     {
       body: "xyz",
@@ -33,12 +39,17 @@ function Articles() {
     },
   ]
 
-  const [PostList, setPostList] = useState(data.slice(0, 2))
-  const [PostListAll, setPostListAll] = useState(data)
+  const [PostListAll, setPostListAll] = useState([])
+  const [PostList, setPostList] = useState([])
+  const startIndex = 3
 
   useEffect(() => {
     GetArticleMany(setPostListAll)
-  }, [])
+    console.log("here")
+    console.log(PostListAll)
+    setPostList(PostListAll.slice(0, 2))
+    // setPostListAll(PostListAll.slice())
+  }, [PostListAll.length, startIndex])
 
   return (
     <div>
@@ -53,15 +64,15 @@ function Articles() {
           {PostList.length === 0
             ? "Data Loading..."
             : PostList.map((post, index) => {
-                return <PostData post={post} index={index} />
+                return <PostData post={post} index={index} key={index} />
               })}
         </div>
       </div>
       <div className="articles-posts">
         <h3>Blog</h3>
-        {PostListAll.length === 0
+        {articles.length === 0
           ? "Data Loading..."
-          : PostListAll.map((post, index) => {
+          : articles.map((post, index) => {
               return <PostData post={post} index={index} inlist={true} />
             })}
       </div>

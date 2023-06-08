@@ -6,17 +6,18 @@ function SingleArticle() {
   const location = useLocation()
   const [ArticleData, setArticleData] = useState({})
 
-  const comments_data = [
-    { comment: "Nice Post", by: "user1", time: "2 minute ago" },
-    { comment: "Nice Post", by: "user1", time: "2 minute ago" },
-    { comment: "Nice Post", by: "user1", time: "2 minute ago" },
-  ]
+  // const comments_data = [
+  //   { comment: "Nice Post", by: "user1", time: "2 minute ago" },
+  //   { comment: "Nice Post", by: "user1", time: "2 minute ago" },
+  //   { comment: "Nice Post", by: "user1", time: "2 minute ago" },
+  // ]
 
-  const [comments, setComments] = useState(comments_data)
+  const [comments, setComments] = useState(null)
 
   useEffect(() => {
     const data = location.state?.article_data
     setArticleData(data)
+    setComments(data.comments)
   }, [location.state?.article_data])
 
   return (
@@ -53,9 +54,19 @@ function SingleArticle() {
         <hr />
       </div>
       <div>
-        <p>{`${comments.length}`} Comments</p>
-        {comments.map((comment, index) => {
-          return <p>{comment.comment}</p>
+        <p>{`${comments?.length}`} Comments</p>
+        {comments?.map((comment, index) => {
+          return (
+            <div className="comment-box-comment" key={index}>
+              <div className="comment-box-comment-user">
+                <p>{comment.user.first_name[0]}</p>
+              </div>
+              <div>
+                <p>{comment.comments}</p>
+                <p>{`posted at: ${comment.created_at}`}</p>
+              </div>
+            </div>
+          )
         })}
       </div>
 
