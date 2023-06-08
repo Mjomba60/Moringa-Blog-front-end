@@ -212,3 +212,38 @@
   border-radius: 5px;
   box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.4);
 }
+
+.home-first {
+  display: flex;
+  justify-content: space-around;
+}
+
+.home-first-text {
+  display: block;
+  margin-top: 60px;
+}
+
+.home-second {
+  display: flex;
+  justify-content: space-around;
+}
+
+.home-second-text {
+  background-color: rgba(2, 73, 255, 1);
+}
+
+.home-second-text button {
+  /* display: block; */
+  /* padding: 10px; */
+  color: blue;
+  border: none;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 10px;
+  background-color: rgb(212, 212, 212);
+  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.4);
+}
+
+.home-second-text p {
+  color: white;
+}

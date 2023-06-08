@@ -1,22 +1,14 @@
 import React from "react"
-import RecentPost from "./RecentPost"
-import PostList from "./PostList"
+import HomeData from "../utils/HomeData"
+import HomeData2 from "../utils/HomeData2"
+import HomeData3 from "../utils/HomeData3"
 
 function Home() {
   return (
     <div>
-      <h1>Inside Moringa: Stories & Development Experiences</h1>
-      <p>
-        Subscribe to get the latest Moringa developers stories & other updates
-      </p>
-      <div>
-        <input type="text" placeholder="Enter your email"></input>
-        <button type="submit">Subscribe</button>
-      </div>
-      <div className="home-posts">
-        <div className="recent-post">{<RecentPost />}</div>
-        <div className="post-list">{<PostList />}</div>
-      </div>
+      <div>{<HomeData />}</div>
+      <div>{<HomeData2 />}</div>
+      <div>{<HomeData3 />}</div>
     </div>
   )
 }
