@@ -16,9 +16,10 @@ export const RegisterUser = (userData, setData, setError) => {
 
 export const LoginUser = (userData, setData, setError) => {
   axiosFetch()
-    .post("users/authenticate", userData)
+    // .post("/users/authenticate", userData)
+    .post("/login", userData)
     .then((response) => {
-      console.log(response.data)
+      console.log(response)
       setData(response)
       // console.log(response.status)
     })
@@ -39,17 +40,17 @@ export const CreateArticle = (ArticleData) => {
     })
 }
 
-export const GetArticleMany = (setLoading) => {
-  setLoading(true)
+export const GetArticleMany = (setData) => {
+  // setLoading(true)
   axiosFetch()
     .get("/articles")
     .then((response) => {
-      console.log(response.data)
-      setLoading(false)
+      // console.log(response.data)
+      setData(response.data)
     })
     .catch((error) => {
       console.log(error)
-      setLoading(false)
+      // set(false)
     })
 }
 
