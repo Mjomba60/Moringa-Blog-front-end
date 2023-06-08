@@ -1,10 +1,16 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import React from "react"
 import FirstImage from "../../assets/pexels-athena-2582937.jpg"
 import PostData from "../utils/PostData"
 import { Link } from "react-router-dom"
 
 function Articles() {
+  const [articles, setArticles] = useState([])
+  useEffect(() => {
+    fetch("http://localhost:9292/articles")
+        .then((r) => r.json())
+        .then(data => setArticles(data));
+  },[])
   const data = [
     {
       body: "xyz",
@@ -53,9 +59,9 @@ function Articles() {
       </div>
       <div className="articles-posts">
         <h3>Blog</h3>
-        {PostListAll.length === 0
+        {articles.length === 0
           ? "Data Loading..."
-          : PostListAll.map((post, index) => {
+          : articles.map((post, index) => {
               return <PostData post={post} index={index} inlist={true} />
             })}
       </div>
