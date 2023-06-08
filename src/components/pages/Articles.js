@@ -1,8 +1,9 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import React from "react"
 import FirstImage from "../../assets/pexels-athena-2582937.jpg"
 import PostData from "../utils/PostData"
 import { Link } from "react-router-dom"
+import { GetArticleMany } from "../../api/api"
 
 function Articles() {
   const data = [
@@ -34,6 +35,11 @@ function Articles() {
 
   const [PostList, setPostList] = useState(data.slice(0, 2))
   const [PostListAll, setPostListAll] = useState(data)
+
+  useEffect(() => {
+    GetArticleMany(setPostListAll)
+  }, [])
+
   return (
     <div>
       <div>
