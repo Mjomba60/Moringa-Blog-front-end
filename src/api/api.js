@@ -29,11 +29,12 @@ export const LoginUser = (userData, setData, setError) => {
     })
 }
 
-export const CreateArticle = (ArticleData) => {
+export const CreateArticlePost = (ArticleData, setResponse) => {
   axiosFetch()
     .post("/articles", ArticleData)
     .then((response) => {
-      console.log(response.data)
+      console.log(response)
+      setResponse(response)
     })
     .catch((error) => {
       console.log(error)
@@ -54,10 +55,10 @@ export const GetArticleMany = (setData) => {
     })
 }
 
-export const CreateComment = (CommentData, setLoading) => {
+export const CreateComment = (CommentData, article_id, setLoading) => {
   setLoading(true)
   axiosFetch()
-    .post("calc/loans/create/", CommentData)
+    .post(`/articles/${article_id}/comments`, CommentData)
     .then((response) => {
       console.log(response.data)
       setLoading(false)
