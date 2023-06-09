@@ -3,7 +3,7 @@ import Avatar from "@mui/material/Avatar"
 import Button from "@mui/material/Button"
 import CssBaseline from "@mui/material/CssBaseline"
 import TextField from "@mui/material/TextField"
-import { useTheme } from "@mui/material/styles"
+
 import DocumentScannerIcon from "@mui/icons-material/DocumentScanner"
 
 import Box from "@mui/material/Box"
@@ -15,48 +15,15 @@ import MenuItem from "@mui/material/MenuItem"
 import FormControl from "@mui/material/FormControl"
 import Select from "@mui/material/Select"
 import { useLocation, useNavigate } from "react-router-dom"
-import { CreateArticlePost } from "../../api/api"
+import { EditArticleSingle } from "../../api/api"
 import axios from "axios"
 
-import OutlinedInput from "@mui/material/OutlinedInput"
-import Chip from "@mui/material/Chip"
-
 // TODO remove, this demo shouldn't need to reset the theme.
-const ITEM_HEIGHT = 48
-const ITEM_PADDING_TOP = 8
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-}
-
-const categories = [
-  "food",
-  "sports",
-  "education",
-  "science",
-  "Technology",
-  "Programming",
-]
-
-function getStyles(name, personName, theme) {
-  return {
-    fontWeight:
-      personName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  }
-}
 
 const defaultTheme = createTheme()
 
-export default function CreateArticle() {
-  const theme = useTheme()
+export default function EditArticle() {
   const [form, setForm] = useState({})
-  const [topicCategory, setTopicCategory] = useState([])
   const [currentUser, setCurrentUser] = useState(null)
   const [hasUser, setHasUser] = useState(false)
   const [resp, setResponse] = useState(null)
@@ -72,15 +39,21 @@ export default function CreateArticle() {
   }, [location.state?.user])
 
   useEffect(() => {
+    const data_ = location.state?.data_to_edit
+    console.log(data_)
+    data_ ? setForm(data_) : setForm({})
+  }, [location.state?.data_to_edit])
+
+  useEffect(() => {
     if (resp?.status === 200) {
       console.log(resp.data.id)
       navigate(`/articles/${resp.data.id}`, {
-        state: { article_data: resp.data, user: currentUser },
+        state: { article_data: resp.data, ...location.state },
       })
     }
     // console.log("in useffect")
     // console.log(resp)
-  }, [resp])
+  }, [location.state, resp])
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -94,7 +67,10 @@ export default function CreateArticle() {
     }
 
     console.log(data_to_send)
-    CreateArticlePost(data_to_send, setResponse)
+    delete data_to_send.comments
+    delete data_to_send.id
+    delete data_to_send.author_name
+    EditArticleSingle(form.id, data_to_send, setResponse)
   }
 
   const onchange = (e) => {
@@ -120,17 +96,10 @@ export default function CreateArticle() {
   }
   const onchangeselect = (e) => {
     e.preventDefault()
-    // const categry = e.target.value
-    const {
-      target: { value },
-    } = e
-    setTopicCategory(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    )
-    RandomImage(topicCategory)
+    const categry = e.target.value
+    RandomImage(categry)
   }
-
+  const categories = ["food", "sports", "education", "science", "Technology"]
   // const handleChange = (event: SelectChangeEvent) => {
   //   setForm({ ...form, [event.target.name]: event.target.value })
   // }
@@ -151,7 +120,7 @@ export default function CreateArticle() {
             <DocumentScannerIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            CREATE YOUR ARTICLE
+            EDIT YOUR ARTICLE
           </Typography>
 
           <TextField
@@ -166,31 +135,23 @@ export default function CreateArticle() {
             value={form.title || ""}
             onChange={onchange}
           />
-
           <FormControl fullWidth>
-            <InputLabel id="demo-multiple-chip-label">Chip</InputLabel>
+            <InputLabel id="demo-simple-select-label">
+              Select category
+            </InputLabel>
             <Select
-              labelId="demo-multiple-chip-label"
-              id="demo-multiple-chip"
-              value={topicCategory}
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              name="category"
+              value={form.category || ""}
               label="Category"
               onChange={onchangeselect}
-              input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-              renderValue={(selected) => (
-                <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                  {selected.map((value) => (
-                    <Chip key={value} label={value} />
-                  ))}
-                </Box>
-              )}
-              MenuProps={MenuProps}
             >
-              {categories.map((cat) => (
-                <MenuItem
-                  key={cat}
-                  value={cat}
-                  style={getStyles(cat, topicCategory, theme)}
-                >
+              {/* <MenuItem value="tech">Tech</MenuItem>
+              <MenuItem value="food">Food</MenuItem> */}
+
+              {categories.map((cat, index) => (
+                <MenuItem key={index} value={cat}>
                   {cat}
                 </MenuItem>
               ))}
@@ -213,7 +174,7 @@ export default function CreateArticle() {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Post Article
+            PUBLISH UPDATE
           </Button>
         </Box>
         {/* </Box> */}
