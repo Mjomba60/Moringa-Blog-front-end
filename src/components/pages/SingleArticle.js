@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 import { AiFillLike, AiOutlineLike } from "react-icons/ai"
 import { CreateComment, GetArticleSingle } from "../../api/api"
 import { DeleteComment, SendInteraction } from "../../api/api"
@@ -7,6 +7,10 @@ import Chip from "@mui/material/Chip"
 
 function SingleArticle() {
   const location = useLocation()
+  const navigate = useNavigate()
+  const routeParams = useParams()
+
+  console.log(routeParams)
   const [ArticleData, setArticleData] = useState(null)
   const [form, setForm] = useState({})
   const [currentUser, setCurrentUser] = useState(null)
@@ -23,10 +27,15 @@ function SingleArticle() {
   const [loadingDelete, setLoadingDelete] = useState(null)
 
   useEffect(() => {
-    const data = location.state?.article_data
     // setArticleData(data)
-    GetArticleSingle(data.id, setArticleData)
-  }, [location.state?.article_data])
+    let { id } = routeParams
+    console.log(parseInt(id))
+    GetArticleSingle(parseInt(id), setArticleData)
+  }, [routeParams])
+
+  // useEffect(() => {
+  //   if(Data.)
+  // })
 
   useEffect(() => {
     if (ArticleData?.comments) {
@@ -57,16 +66,6 @@ function SingleArticle() {
       [e.target.name]: e.target.value,
     }),
   ]
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    let comment_data = {
-      article_id: ArticleData.id,
-      user_id: currentUser?.id,
-      ...form,
-    }
-    console.log(comment_data)
-    CreateComment(comment_data, ArticleData.id, setLoading, setCreateData)
-  }
 
   return (
     <div>
@@ -116,7 +115,37 @@ function SingleArticle() {
               value={form.comments || ""}
             ></textarea>
             <br />
-            <button onClick={handleSubmit}> Post comment</button>
+            {/* <button onClick={handleSubmit}> Post comment</button> */}
+            <Chip
+              label=" Edit Article"
+              variant="outlined"
+              onClick={(e) => {
+                e.preventDefault()
+                navigate(`/articles/edit/${ArticleData?.id}`, {
+                  state: { data_to_edit: ArticleData, ...location.state },
+                })
+              }}
+            />
+            <Chip
+              label=" Post comment"
+              variant="outlined"
+              onClick={(e) => {
+                e.preventDefault()
+                let comment_data = {
+                  article_id: ArticleData.id,
+                  user_id: currentUser?.id,
+                  ...form,
+                }
+                console.log(comment_data)
+                CreateComment(
+                  comment_data,
+                  ArticleData.id,
+                  setLoading,
+                  setCreateData
+                )
+              }}
+              // onClick={handleSubmit}
+            />
           </div>
         </form>
         <hr />

@@ -77,7 +77,7 @@ export const EditArticleSingle = (id, newData, setData) => {
     .put(`/articles/${id}`, newData)
     .then((response) => {
       console.log(response)
-      setData(response.data)
+      setData(response)
     })
     .catch((error) => {
       console.log(error)
