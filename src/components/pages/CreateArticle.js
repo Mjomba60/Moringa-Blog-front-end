@@ -16,6 +16,7 @@ import FormControl from "@mui/material/FormControl"
 import Select, { SelectChangeEvent } from "@mui/material/Select"
 import { useLocation, useNavigate } from "react-router-dom"
 import { CreateArticlePost } from "../../api/api"
+import axios from "axios"
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
@@ -67,6 +68,29 @@ export default function CreateArticle() {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
+  const RandomImage = (topic) => {
+    return axios
+      .get("https://api.unsplash.com/photos/random", {
+        params: {
+          query: topic,
+          client_id: "EgbFMj3LQq1X_9c4tI7Qj6XRsXgNEwAmQnPfNugasRg",
+        },
+      })
+      .then((response) => {
+        console.log(response.data.urls.regular)
+        return setForm({
+          ...form,
+          image_url: response.data.urls.regular,
+          category: topic,
+        })
+      })
+  }
+  const onchangeselect = (e) => {
+    e.preventDefault()
+    const categry = e.target.value
+    RandomImage(categry)
+  }
+  const categories = ["food", "sports", "education", "science", "Technology"]
   // const handleChange = (event: SelectChangeEvent) => {
   //   setForm({ ...form, [event.target.name]: event.target.value })
   // }
@@ -112,11 +136,16 @@ export default function CreateArticle() {
               name="category"
               value={form.category || ""}
               label="Category"
-              onChange={onchange}
+              onChange={onchangeselect}
             >
-              <MenuItem value="tech">Ten</MenuItem>
-              <MenuItem value="food">Twenty</MenuItem>
-              <MenuItem value="science">Thirty</MenuItem>
+              {/* <MenuItem value="tech">Tech</MenuItem>
+              <MenuItem value="food">Food</MenuItem> */}
+
+              {categories.map((cat, index) => (
+                <MenuItem key={index} value={cat}>
+                  {cat}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
           <FormControl fullWidth>
@@ -129,12 +158,6 @@ export default function CreateArticle() {
               cols="70"
             ></textarea>
           </FormControl>
-          <input
-            type="file"
-            name="image"
-            value={form.image || ""}
-            onChange={onchange}
-          />
 
           <Button
             onClick={handleSubmit}

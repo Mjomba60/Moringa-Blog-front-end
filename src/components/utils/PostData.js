@@ -1,13 +1,15 @@
 import React from "react"
 import { FcShare } from "react-icons/fc"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 
 function PostData({ post, index, inlist }) {
   const navigate = useNavigate()
-
+  const location = useLocation()
   const handleArticleClick = (e) => {
     e.preventDefault()
-    navigate(`/articles/${index}`, { state: { article_data: post } })
+    navigate(`/articles/${index}`, {
+      state: { article_data: post, ...location.state },
+    })
   }
 
   return (
