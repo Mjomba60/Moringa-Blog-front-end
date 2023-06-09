@@ -9,9 +9,10 @@ function HomeData() {
           <p>Talking to devs like you!</p>
           <p>
             <b>
-              Exploring the world of <br />
-              Technology
-            </b>
+              EXPLORING THE WORLD </b>
+              OF 
+            
+            TECHNOLOGY
           </p>
 
           <p>Discover. Grow. Transform.</p>

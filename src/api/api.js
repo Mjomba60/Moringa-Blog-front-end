@@ -55,12 +55,63 @@ export const GetArticleMany = (setData) => {
     })
 }
 
-export const CreateComment = (CommentData, article_id, setLoading) => {
+// /articles/:id
+
+export const GetArticleSingle = (id, setData) => {
+  // setLoading(true)
+  axiosFetch()
+    .get(`/articles/${id}`)
+    .then((response) => {
+      console.log(response)
+      setData(response.data)
+    })
+    .catch((error) => {
+      console.log(error)
+      // set(false)
+    })
+}
+
+export const EditArticleSingle = (id, newData, setData) => {
+  // setLoading(true)
+  axiosFetch()
+    .put(`/articles/${id}`, newData)
+    .then((response) => {
+      console.log(response)
+      setData(response)
+    })
+    .catch((error) => {
+      console.log(error)
+      // set(false)
+    })
+}
+export const CreateComment = (
+  CommentData,
+  article_id,
+  setLoading,
+  setCreateData
+) => {
   setLoading(true)
   axiosFetch()
     .post(`/articles/${article_id}/comments`, CommentData)
     .then((response) => {
       console.log(response.data)
+      setCreateData(response)
+      setLoading(false)
+    })
+    .catch((error) => {
+      console.log(error)
+      setLoading(false)
+    })
+}
+// /articles/:article_id/comments/:comment_id
+
+export const DeleteComment = (article_id, comment_id, setLoading) => {
+  setLoading(true)
+  axiosFetch()
+    .delete(`/articles/${article_id}/comments/${comment_id}`)
+    .then((response) => {
+      console.log(response.data)
+      // setCreateData(response)
       setLoading(false)
     })
     .catch((error) => {
@@ -69,12 +120,12 @@ export const CreateComment = (CommentData, article_id, setLoading) => {
     })
 }
 
-export const GetComment = (setData) => {
+export const SendInteraction = (article_id, InteractionData, setData) => {
   axiosFetch()
-    .get("calc/loanproducts/")
+    .post(`/articles/${article_id}/interaction`, InteractionData)
     .then((response) => {
-      console.log(response.data)
-      setData(response.data)
+      console.log(response)
+      setData(response)
     })
     .catch((error) => {
       console.log(error)

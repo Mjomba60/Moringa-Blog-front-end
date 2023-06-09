@@ -11,18 +11,19 @@ import Footer from "./components/Navigation/Footer"
 import SingleArticle from "./components/pages/SingleArticle"
 import SignIn from "./components/pages/SignIn"
 import SignUp from "./components/pages/SignUp"
+import EditArticle from "./components/pages/EditArticle"
 
 function App() {
   return (
     <div className="App">
       <div className="app-navigation">{<Navbar />}</div>
-
       <div className="app-main">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/articles/create" element={<CreateArticle />} />
-          <Route path="/articles/:1d" element={<SingleArticle />} />
+          <Route path="/articles/edit/:id" element={<EditArticle />} />
+          <Route path="/articles/:id" element={<SingleArticle />} />
           <Route path="/contactus" element={<ContactUS />} />
           <Route path="/articles" element={<Articles />} />
           <Route path="/profile" element={<Profile />} />
