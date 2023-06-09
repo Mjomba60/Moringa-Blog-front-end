@@ -4,29 +4,29 @@ A web application for a Software Engineering school called Moringa School, where
 
 ## Table of Contents
 
--Features
--Technologies Used
--Getting Started
--Installation and Usage
--License
+- Features
+- Technologies Used
+- Getting Started
+- Installation and Usage
+- License
 
 ### Features
 
--Sign in: Users can sign in to access their account.
--Create articles: Users can create articles related to different frameworks.
--Read articles: Users can browse and read articles on various topics.
--Contact Us: Users can get in touch with the administrators of the website.
--Profile: Users can view and edit their profile information.
--Recent Posts: Displays a list of recent articles.
--Sign Up: New users can sign up for an account.
+- Sign in: Users can sign in to access their account.
+- Create articles: Users can create articles related to different frameworks.
+- Read articles: Users can browse and read articles on various topics.
+- Contact Us: Users can get in touch with the administrators of the website.
+- Profile: Users can view and edit their profile information.
+- Recent Posts: Displays a list of recent articles.
+- Sign Up: New users can sign up for an account.
 
 
 ### Technologies Used
 
--React: JavaScript library for building user interfaces.
--HTML: Markup language for creating the structure of web pages.
--CSS: Styling language for designing web pages.
--JavaScript: Programming language for adding interactivity to web pages.
+- React: JavaScript library for building user interfaces.
+- HTML: Markup language for creating the structure of web pages.
+- CSS: Styling language for designing web pages.
+- JavaScript: Programming language for adding interactivity to web pages.
 
 
 ### Setup Getting Started
