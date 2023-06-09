@@ -14,7 +14,7 @@ const axiosFetch = () => {
     // http://loancalculator.zeabur.app/calc/banks/
 
     // baseURL:"http://127.0.0.1:8000/",
-    baseURL: "https://loancalculator.zeabur.app/",
+    baseURL: "http://localhost:9292",
     // credentials: "same-origin",
     headers: headers,
   })

@@ -1,10 +1,8 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import Avatar from "@mui/material/Avatar"
 import Button from "@mui/material/Button"
 import CssBaseline from "@mui/material/CssBaseline"
 import TextField from "@mui/material/TextField"
-import FormControlLabel from "@mui/material/FormControlLabel"
-import Checkbox from "@mui/material/Checkbox"
 import Link from "@mui/material/Link"
 import Paper from "@mui/material/Paper"
 import Box from "@mui/material/Box"
@@ -12,21 +10,49 @@ import Grid from "@mui/material/Grid"
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
 import Typography from "@mui/material/Typography"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
+import { LoginUser } from "../../api/api"
+import { useNavigate } from "react-router-dom"
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme()
 
 export default function SignIn() {
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    const data = new FormData(event.currentTarget)
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    })
+  const [form, setForm] = useState({})
+  const [data, setData] = useState(null)
+  const [error, setError] = useState(null)
+  const [success, setSuccess] = useState(null)
+  const navigate = useNavigate()
+
+  const onchange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value })
   }
 
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    console.log(form)
+    // LoginUser = (userData, setData, setError)
+    LoginUser(form, setData, setError)
+  }
+
+  useEffect(() => {
+    if (data?.status === 200) {
+      console.log("here")
+      console.log(data.data)
+      setForm({})
+      setSuccess({
+        responsestatusText: "Signin is successful",
+        detail: `Account is ${data.statusText}`,
+      })
+      setTimeout(() => {
+        setData({})
+        navigate("/", {
+          state: { user: data.data },
+          replace: true,
+        })
+      }, 2000)
+    }
+  }, [navigate, error, data?.status, data?.data, data?.statusText])
   return (
     <ThemeProvider theme={defaultTheme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
@@ -62,8 +88,15 @@ export default function SignIn() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign in
+              Sign In to your Account
             </Typography>
+            {success ? (
+              <Typography component="h1" variant="h5">
+                {success.responsestatusText} <br /> {success.detail}
+              </Typography>
+            ) : (
+              ""
+            )}
             <Box
               component="form"
               noValidate
@@ -79,6 +112,8 @@ export default function SignIn() {
                 name="email"
                 autoComplete="email"
                 autoFocus
+                onChange={onchange}
+                value={form.email || ""}
               />
               <TextField
                 margin="normal"
@@ -89,13 +124,12 @@ export default function SignIn() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={onchange}
+                value={form.password || ""}
               />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
+
               <Button
-                type="submit"
+                onClick={handleSubmit}
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}

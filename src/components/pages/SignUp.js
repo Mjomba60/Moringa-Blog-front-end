@@ -1,10 +1,8 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import Avatar from "@mui/material/Avatar"
 import Button from "@mui/material/Button"
 import CssBaseline from "@mui/material/CssBaseline"
 import TextField from "@mui/material/TextField"
-import FormControlLabel from "@mui/material/FormControlLabel"
-import Checkbox from "@mui/material/Checkbox"
 import Link from "@mui/material/Link"
 import Grid from "@mui/material/Grid"
 import Box from "@mui/material/Box"
@@ -12,20 +10,55 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
 import Typography from "@mui/material/Typography"
 import Container from "@mui/material/Container"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
+import { RegisterUser } from "../../api/api"
+import { useNavigate } from "react-router-dom"
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme()
 
 export default function SignUp() {
+  //   {
+  //     "first_name": "test34",
+  //     "last_name": "test35",
+  //     "user_name": "test34",
+  //     "password": "passwordtest35",
+  //     "email": "test35@example.com"
+  // }
+  const [form, setForm] = useState({})
+  const [data, setData] = useState(null)
+  const [error, setError] = useState(null)
+  const [success, setSuccess] = useState(null)
+  const navigate = useNavigate()
+
+  const onchange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value })
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault()
-    const data = new FormData(event.currentTarget)
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    })
+    console.log(form)
+    // LoginUser = (userData, setData, setError)
+    RegisterUser(form, setData, setError)
   }
+
+  useEffect(() => {
+    if (data?.status === 201) {
+      console.log("here")
+      console.log(data)
+      setForm({})
+      setSuccess({
+        responsestatusText: "Signup is successful",
+        detail: `Account is ${data.statusText}`,
+      })
+      setTimeout(() => {
+        setData({})
+        navigate("/signin")
+      }, 2000)
+    } else {
+      console.log(error)
+    }
+  }, [data, navigate, error])
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -43,8 +76,15 @@ export default function SignUp() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            CREATE AN ACCOUNT
           </Typography>
+          {success ? (
+            <Typography component="h1" variant="h5">
+              {success.responsestatusText} <br /> {success.detail}
+            </Typography>
+          ) : (
+            ""
+          )}
           <Box
             component="form"
             onSubmit={handleSubmit}
@@ -55,11 +95,49 @@ export default function SignUp() {
               margin="normal"
               required
               fullWidth
+              id="first_name"
+              label="First Name"
+              name="first_name"
+              autoFocus
+              onChange={onchange}
+              value={form.first_name || ""}
+            />
+
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="last_name"
+              label="Last Name"
+              name="last_name"
+              autoFocus
+              onChange={onchange}
+              value={form.last_name || ""}
+            />
+
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="user_name"
+              label="User Name"
+              name="user_name"
+              autoFocus
+              onChange={onchange}
+              value={form.user_name || ""}
+            />
+
+            <TextField
+              margin="normal"
+              required
+              fullWidth
               id="email"
               label="Email Address"
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={onchange}
+              value={form.email || ""}
             />
             <TextField
               margin="normal"
@@ -70,18 +148,17 @@ export default function SignUp() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={onchange}
+              value={form.password || ""}
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
+
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              Sign Up
             </Button>
             <Grid container>
               <Grid item xs>

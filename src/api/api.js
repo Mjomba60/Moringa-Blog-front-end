@@ -16,9 +16,10 @@ export const RegisterUser = (userData, setData, setError) => {
 
 export const LoginUser = (userData, setData, setError) => {
   axiosFetch()
-    .post("users/authenticate", userData)
+    // .post("/users/authenticate", userData)
+    .post("/login", userData)
     .then((response) => {
-      console.log(response.data)
+      console.log(response)
       setData(response)
       // console.log(response.status)
     })
@@ -28,35 +29,36 @@ export const LoginUser = (userData, setData, setError) => {
     })
 }
 
-export const CreateArticle = (ArticleData) => {
+export const CreateArticlePost = (ArticleData, setResponse) => {
   axiosFetch()
     .post("/articles", ArticleData)
     .then((response) => {
-      console.log(response.data)
+      console.log(response)
+      setResponse(response)
     })
     .catch((error) => {
       console.log(error)
     })
 }
 
-export const GetArticleMany = (setLoading) => {
-  setLoading(true)
+export const GetArticleMany = (setData) => {
+  // setLoading(true)
   axiosFetch()
     .get("/articles")
     .then((response) => {
-      console.log(response.data)
-      setLoading(false)
+      // console.log(response.data)
+      setData(response.data)
     })
     .catch((error) => {
       console.log(error)
-      setLoading(false)
+      // set(false)
     })
 }
 
-export const CreateComment = (CommentData, setLoading) => {
+export const CreateComment = (CommentData, article_id, setLoading) => {
   setLoading(true)
   axiosFetch()
-    .post("calc/loans/create/", CommentData)
+    .post(`/articles/${article_id}/comments`, CommentData)
     .then((response) => {
       console.log(response.data)
       setLoading(false)
