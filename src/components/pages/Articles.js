@@ -39,9 +39,9 @@ function Articles() {
       </div>
       <div className="articles-posts">
         <h3>Blog</h3>
-        {PostListAll.length === 0
+        {articles.length === 0
           ? "Data Loading..."
-          : PostListAll.map((post, index) => {
+          : articles.map((post, index) => {
               return <PostData post={post} index={index} inlist={true} />
             })}
       </div>
