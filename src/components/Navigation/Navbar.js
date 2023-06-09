@@ -5,7 +5,7 @@ import Icon from "../../assets/Icon.png"
 function Navbar() {
   const navigate = useNavigate()
   const location = useLocation()
-  const [hasUser, setHasUser] = useState({})
+  const [hasUser, setHasUser] = useState(false)
 
   useEffect(() => {
     const user = location.state?.user
