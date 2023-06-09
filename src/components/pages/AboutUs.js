@@ -1,3 +1,5 @@
+
+
 import React, { useState, useEffect } from "react";
 
 function AboutUs() {
@@ -21,6 +23,7 @@ function AboutUs() {
     }
   };
 
+
   const generateDescription = () => {
     const descriptions = [
       "Frontend Developer",
@@ -28,14 +31,17 @@ function AboutUs() {
       "Full Stack Developer",
       "UI/UX Designer",
       "Software Engineer",
+
     ];
     const randomIndex = Math.floor(Math.random() * descriptions.length);
     return descriptions[randomIndex];
   };
 
+
   return (
     <div>
       <h1>About Us</h1>
+
       <p>We are comitted to make sure that this applications is as helpful as intended. <br>
       </br>Through a team of developers that are committed and dedicated their efforts to this web application,
       <br></br>they have made sure that you as a user are going to enjoy and feel comfortable as you navigate<br></br>

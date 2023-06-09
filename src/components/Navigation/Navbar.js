@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { useNavigate, useLocation } from "react-router-dom"
+import { useNavigate, useLocation, Link } from "react-router-dom"
 import Icon from "../../assets/Icon.png"
 
 function Navbar() {
@@ -12,11 +12,13 @@ function Navbar() {
     const user = location.state?.user
     user ? setHasUser(true) : setHasUser(false)
     user ? setCurrentUser(user) : setCurrentUser(null)
-  })
+  }, [location.state])
 
   const handleArticleCreate = (e) => {
     e.preventDefault()
-    navigate("/articles/create", { state: { user: currentUser } })
+    navigate("/articles/create", {
+      state: { user: currentUser, ...location.state },
+    })
   }
 
   const handleSigninClick = (e) => {
@@ -43,10 +45,18 @@ function Navbar() {
         </p>
       </div>
       <nav className="navigation-group-2">
-        <a href="/">Home</a>
-        <a href="/articles">Articles</a>
-        <a href="/aboutus">About Us</a>
-        <a href="/contactus">Contact Us</a>
+        <Link to="/" state={location.state}>
+          Home
+        </Link>
+        <Link to="/articles" state={location.state}>
+          Articles
+        </Link>
+        <Link to="/aboutus" state={location.state}>
+          About Us
+        </Link>
+        <Link to="/contactus" state={location.state}>
+          Contact Us
+        </Link>
         <button className="add-button" onClick={handleArticleCreate}>
           +
         </button>

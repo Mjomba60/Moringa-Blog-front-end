@@ -14,8 +14,8 @@ import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"
 import FormControl from "@mui/material/FormControl"
 import Select from "@mui/material/Select"
-import { useLocation, useNavigate } from "react-router-dom"
-import { CreateArticlePost } from "../../api/api"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
+import { EditArticleSingle, GetArticleSingle } from "../../api/api"
 import axios from "axios"
 
 import OutlinedInput from "@mui/material/OutlinedInput"
@@ -40,6 +40,7 @@ const categories = [
   "science",
   "Technology",
   "Programming",
+  "travel",
 ]
 
 function getStyles(name, personName, theme) {
@@ -53,7 +54,7 @@ function getStyles(name, personName, theme) {
 
 const defaultTheme = createTheme()
 
-export default function CreateArticle() {
+export default function EditArticle() {
   const theme = useTheme()
   const [form, setForm] = useState({})
   const [topicCategory, setTopicCategory] = useState([])
@@ -63,6 +64,7 @@ export default function CreateArticle() {
 
   const location = useLocation()
   const navigate = useNavigate()
+  const paramsRoute = useParams()
 
   useEffect(() => {
     const user = location.state?.user
@@ -71,11 +73,24 @@ export default function CreateArticle() {
     user ? setHasUser(true) : setHasUser(false)
   }, [location.state?.user])
 
+  // useEffect(() => {
+  //   const data_ = location.state?.data_to_edit
+  //   console.log(data_)
+  //   data_ ? setForm(data_) : setForm({})
+  // }, [location.state?.data_to_edit])
+
+  useEffect(() => {
+    // setArticleData(data)
+    let { id } = paramsRoute
+    console.log(parseInt(id))
+    GetArticleSingle(parseInt(id), setForm)
+  }, [paramsRoute])
+
   useEffect(() => {
     if (resp?.status === 200) {
       console.log(resp.data.id)
-      navigate(`/articles/${resp.data.id}`, {
-        state: { article_data: resp.data, user: currentUser },
+      navigate(`/articles/${parseInt(paramsRoute.id)}`, {
+        state: { article_data: resp.data, ...location.state },
       })
     }
     // console.log("in useffect")
@@ -94,7 +109,10 @@ export default function CreateArticle() {
     }
 
     console.log(data_to_send)
-    CreateArticlePost(data_to_send, setResponse)
+    delete data_to_send.comments
+    delete data_to_send.id
+    delete data_to_send.author_name
+    EditArticleSingle(form.id, data_to_send, setResponse)
   }
 
   const onchange = (e) => {
@@ -213,7 +231,7 @@ export default function CreateArticle() {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Post Article
+            PUBLISH UPDATE
           </Button>
         </Box>
         {/* </Box> */}
