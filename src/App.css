@@ -149,7 +149,7 @@
   flex-direction: row;
   justify-content: space-around;
   padding-top: 30px;
-  background-color: white;
+  background-color: rgb(172, 170, 170);
 }
 
 .articles-recents {
@@ -215,21 +215,42 @@
 
 .home-first {
   display: flex;
-  justify-content: space-around;
+  justify-content: left;
+  align-items: center;
+  background-color: black;
 }
 
 .home-first-text {
-  display: block;
-  margin-top: 60px;
+  text-align: center;
+  margin: 10px;
+  flex: 1;
+  color: white;
+  font-size: 30px;
 }
 
+.home-first-image {
+  display: flex;
+  align-items: center;
+  flex: 2;
+  overflow: hidden;
+}
+
+.home-first-image img {
+  width: 100%;
+  height: 50%;
+}
 .home-second {
   display: flex;
   justify-content: space-around;
+  background-image: url('/media/markwanjau/markmain/my-git-project/Moringa-Blog-front-end/Moringa-Blog-front-end/src/assets/colorblend.png'); /* Replace 'path/to/your/image.jpg' with the actual path to your image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .home-second-text {
   background-color: rgba(2, 73, 255, 1);
+  font-weight: bolder;
 }
 
 .home-second-text button {
@@ -259,23 +280,4 @@
 
 #demo-simple-select-label {
   margin-top: 5px;
-}
-
-.comment-box-comment {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin: 10px;
-}
-
-.comment-box-comment-user {
-  color: white;
-  background-color: rgb(248, 148, 67);
-  width: 30px;
-  height: 30px;
-  padding: 30px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
