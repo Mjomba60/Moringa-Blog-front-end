@@ -62,11 +62,7 @@ function Articles() {
       </div>
       <div className="articles-posts">
         <h3>Blog</h3>
-<<<<<<< HEAD
         {PostListAll?.length === 0
-=======
-        {PostListAll.length === 0
->>>>>>> origin/development
           ? "Data Loading..."
           : PostListAll.map((post, index) => {
               return <PostData post={post} index={index} inlist={true} />
