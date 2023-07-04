@@ -15,7 +15,7 @@ function Home() {
   //   user ? setHasUser(true) : setHasUser(false)
   // })
   return (
-    <div>
+    <div className="home-padding">
       <div>{<HomeData />}</div>
       <div>{<HomeData2 />}</div>
       <div>{<HomeData3 />}</div>
