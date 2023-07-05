@@ -9,7 +9,13 @@ function ArticleLikes({ articleId }) {
 
   const fetchArticleLikes = async () => {
     try {
-      const response = await fetch(`http://localhost:9292/articles/${articleId}/likes`);
+      const response = await fetch(`http://localhost:9292/articles/${articleId}/interaction`, {
+        method: "POST", // Change the method to POST
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ article_id: articleId }), // Pass the article ID in the request body
+      });
       const data = await response.json();
       setLikes(data);
     } catch (error) {
@@ -27,6 +33,8 @@ function ArticleLikes({ articleId }) {
           </li>
         ))}
       </ul>
+      <button>Like ({likes.filter(like => like.interaction_type === 'like').length})</button>
+      <button>Dislike ({likes.filter(like => like.interaction_type === 'dislike').length})</button>
     </div>
   );
 }
