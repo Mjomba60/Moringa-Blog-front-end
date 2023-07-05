@@ -50,13 +50,13 @@ function SingleArticle() {
 
   useEffect(() => {
     if (createData?.status === 200) {
-      GetArticleSingle(ArticleData.id, setArticleData)
+      GetArticleSingle(ArticleData?.id, setArticleData)
     }
   }, [ArticleData?.id, createData?.status])
 
   useEffect(() => {
     if (loadingDelete) {
-      GetArticleSingle(ArticleData.id, setArticleData)
+      GetArticleSingle(ArticleData?.id, setArticleData)
     }
   }, [ArticleData?.id, createData?.status, loadingDelete])
 
@@ -68,89 +68,92 @@ function SingleArticle() {
   ]
 
   return (
-    <div>
-      <h1>{ArticleData ? ArticleData.title : "Single Article"}</h1>
-      <h6>
-        {ArticleData?.author_name && ArticleData?.date
-          ? `By ${ArticleData?.author_name} ${ArticleData?.date}`
-          : "Anonymous Author"}
-      </h6>
-      <div className="article-interaction">
-        <button
-          onClick={(e) => {
-            e.preventDefault()
-            let int_data = {
-              user_id: currentUser?.id,
-              article_id: ArticleData?.id,
-              interaction_type: "like",
-            }
-            SendInteraction(ArticleData?.id, int_data, setData)
-          }}
-        >
-          {" "}
-          {<AiFillLike />}
-        </button>
-        <button>{<AiOutlineLike />}</button>
-        <button>{ArticleData?.category}</button>
+    <div className="singlearticle-majordiv">
+      <div className="article-window">
+        <h1>{ArticleData ? ArticleData.title : "Single Article"}</h1>
+        <h6>
+          {ArticleData?.author_name && ArticleData?.date
+            ? `By ${ArticleData?.author_name} ${ArticleData?.date}`
+            : "Anonymous Author"}
+        </h6>
+        <div className="article-interaction">
+          <button
+            onClick={(e) => {
+              e.preventDefault()
+              let int_data = {
+                user_id: currentUser?.id,
+                article_id: ArticleData?.id,
+                interaction_type: "like",
+              }
+              SendInteraction(ArticleData?.id, int_data, setData)
+            }}
+          >
+            {" "}
+            {<AiFillLike />}
+          </button>
+          <button>{<AiOutlineLike />}</button>
+          <button>{ArticleData?.category}</button>
+        </div>
+
+        <img
+          src={ArticleData?.image_url}
+          alt={ArticleData?.title}
+          height={200}
+          width={300}
+        />
+        <p>{ArticleData ? ArticleData?.body : "No Information"}</p>
+        <div className="comment-box">
+          <form className="comment-form">
+            <div>
+              <label for="txtarea">Add Your comment: </label>
+              <br />
+              {loading ? "Posting ..." : ""}
+              <textarea
+                id="txtarea"
+                name="comments"
+                placeholder="Comment here"
+                onChange={onchange}
+                value={form.comments || ""}
+              ></textarea>
+              <br />
+              {/* <button onClick={handleSubmit}> Post comment</button> */}
+              <Chip
+                label=" Edit Article"
+                variant="outlined"
+                onClick={(e) => {
+                  e.preventDefault()
+                  navigate(`/articles/edit/${ArticleData?.id}`, {
+                    state: { data_to_edit: ArticleData, ...location.state },
+                  })
+                }}
+              />
+              <Chip
+                label=" Post comment"
+                variant="outlined"
+                onClick={(e) => {
+                  e.preventDefault()
+                  let comment_data = {
+                    article_id: ArticleData?.id,
+                    user_id: currentUser?.id,
+                    ...form,
+                  }
+                  console.log(comment_data)
+                  CreateComment(
+                    comment_data,
+                    ArticleData?.id,
+                    setLoading,
+                    setCreateData
+                  )
+                }}
+                // onClick={handleSubmit}
+              />
+            </div>
+          </form>
+          <hr />
+        </div>
       </div>
 
-      <img
-        src={ArticleData?.image_url}
-        alt={ArticleData?.title}
-        height={200}
-        width={300}
-      />
-      <p>{ArticleData ? ArticleData?.body : "No Information"}</p>
-      <div className="comment-box">
-        <form className="comment-form">
-          <div>
-            <label for="txtarea">Add Your comment: </label>
-            <br />
-            {loading ? "Posting ..." : ""}
-            <textarea
-              id="txtarea"
-              name="comments"
-              placeholder="Comment here"
-              onChange={onchange}
-              value={form.comments || ""}
-            ></textarea>
-            <br />
-            {/* <button onClick={handleSubmit}> Post comment</button> */}
-            <Chip
-              label=" Edit Article"
-              variant="outlined"
-              onClick={(e) => {
-                e.preventDefault()
-                navigate(`/articles/edit/${ArticleData?.id}`, {
-                  state: { data_to_edit: ArticleData, ...location.state },
-                })
-              }}
-            />
-            <Chip
-              label=" Post comment"
-              variant="outlined"
-              onClick={(e) => {
-                e.preventDefault()
-                let comment_data = {
-                  article_id: ArticleData.id,
-                  user_id: currentUser?.id,
-                  ...form,
-                }
-                console.log(comment_data)
-                CreateComment(
-                  comment_data,
-                  ArticleData.id,
-                  setLoading,
-                  setCreateData
-                )
-              }}
-              // onClick={handleSubmit}
-            />
-          </div>
-        </form>
-        <hr />
-      </div>
-      <div>
+      <div className="comment-section">
         <p>{`${comments?.length}`} Comments</p>
         {comments
           ? comments.map((comment, index) => {
@@ -171,7 +174,7 @@ function SingleArticle() {
                         onDelete={(e) => {
                           e.preventDefault()
                           DeleteComment(
-                            ArticleData.id,
+                            ArticleData?.id,
                             comment.id,
                             setLoadingDelete
                           )
