@@ -1,6 +1,8 @@
 import React from "react"
 import Teddybear from "../../assets/TeddyBear.png"
 import ProfileForm from "../forms/ProfileForm"
+import AnalyticsForm from "../forms/AnalyticsForm"
+import { Button } from "semantic-ui-react"
 
 function Profile() {
   return (
@@ -36,13 +38,14 @@ function Profile() {
           <h3>Analytics</h3>
           <div className="User-Analytics">
             <div className="Analytics-list">
-              <ol>
-                <li>Sports</li>
-                <li>Food</li>
-                <li>Technology</li>
-                <li>Science</li>
-              </ol>
+              <AnalyticsForm />
             </div>
+          </div>
+          <div className="Donate-button">
+            <button>Donate</button>
+          </div>
+          <div className="Deleteaccount-button">
+            <button>DELETE ACCOUNT</button>
           </div>
         </div>
       </div>

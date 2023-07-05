@@ -2,28 +2,28 @@ import React from "react"
 
 function ProfileForm() {
   return (
-    <div>
+    <div className="Profile-form">
       <form>
         <div>
-          <label for="profile-firstname">First Name</label>
+          <label for="profile-firstname">First Name : </label>
           <input
             name="username"
             id="profile-firstname"
-            value={"username"}
+            value={"first name"}
             disabled
           ></input>
         </div>
         <div>
-          <label for="profile-lastname">First Name</label>
+          <label for="profile-lastname">Last Name : </label>
           <input
             name="username"
             id="profile-lastname"
-            value={"username"}
+            value={"last name"}
             disabled
           ></input>
         </div>
         <div>
-          <label for="profile-username">First Name</label>
+          <label for="profile-username">User Name : </label>
           <input
             name="username"
             id="profile-username"
@@ -32,11 +32,11 @@ function ProfileForm() {
           ></input>
         </div>
         <div>
-          <label for="profile-email">First Name</label>
+          <label for="profile-email">Email : </label>
           <input
             name="username"
             id="profile-email"
-            value={"username"}
+            value={"email"}
             disabled
           ></input>
         </div>
