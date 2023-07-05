@@ -20,9 +20,9 @@ import axios from "axios"
 
 import OutlinedInput from "@mui/material/OutlinedInput"
 import Chip from "@mui/material/Chip"
-import { Editor } from 'react-draft-wysiwyg';
-import { EditorState, convertToRaw, convertToHTML } from 'draft-js';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import { Editor } from "react-draft-wysiwyg"
+import { EditorState, convertToRaw, convertToHTML } from "draft-js"
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css"
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const ITEM_HEIGHT = 48
@@ -63,7 +63,7 @@ export default function CreateArticle() {
   const [currentUser, setCurrentUser] = useState(null)
   const [hasUser, setHasUser] = useState(false)
   const [resp, setResponse] = useState(null)
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  const [editorState, setEditorState] = useState(EditorState.createEmpty())
 
   const location = useLocation()
   const navigate = useNavigate()
@@ -140,16 +140,15 @@ export default function CreateArticle() {
   // }
 
   const handleEditorChange = (state) => {
-    setEditorState(state);
-  };
-  
+    setEditorState(state)
+  }
+
   const handleSaveArticle = () => {
-    const contentState = editorState.getCurrentContent();
-    const rawContentState = convertToRaw(contentState);
-    const htmlContent = convertToHTML(rawContentState);
-  
-  };
-  
+    const contentState = editorState.getCurrentContent()
+    const rawContentState = convertToRaw(contentState)
+    const htmlContent = convertToHTML(rawContentState)
+  }
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
@@ -213,19 +212,22 @@ export default function CreateArticle() {
           </FormControl>
           <FormControl fullWidth>
             <div>
-          <Editor
-            editorState={editorState}
-            onEditorStateChange={handleEditorChange}
-          />
-            <textarea
-              name="body"
-              className="article-body"
-              onChange={onchange}
-              value={form.body || ""}
-              rows="9"
-              cols="70"
-            >
-          </textarea>
+              <Editor
+                editorState={editorState}
+                onEditorStateChange={handleEditorChange}
+                toolbarClassName="toolbarClassName"
+                wrapperClassName="wrapperClassName"
+                editorClassName="editorClassName"
+                // onEditorStateChange={this.onEditorStateChange}
+              />
+              <textarea
+                name="body"
+                className="article-body"
+                onChange={onchange}
+                value={form.body || ""}
+                rows="9"
+                cols="70"
+              ></textarea>
             </div>
           </FormControl>
 

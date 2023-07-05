@@ -20,10 +20,23 @@ function Navbar() {
       state: { user: currentUser, ...location.state },
     })
   }
+  const handleProfileClick = (e) => {
+    e.preventDefault()
+    navigate("/profile", {
+      state: { user: currentUser, ...location.state },
+    })
+  }
 
   const handleSigninClick = (e) => {
     e.preventDefault()
     navigate("/signin")
+  }
+
+  const handleSignOutClick = (e) => {
+    e.preventDefault()
+    navigate("/", {
+      state: {},
+    })
   }
   return (
     <div className="navigation">
@@ -61,7 +74,14 @@ function Navbar() {
           +
         </button>
         {hasUser ? (
-          <button className="profile-button">Profile</button>
+          <>
+            <button className="profile-button" onClick={handleProfileClick}>
+              Profile
+            </button>
+            <button className="signout-button" onClick={handleSignOutClick}>
+              SignOut
+            </button>
+          </>
         ) : (
           <button className="profile-button" onClick={handleSigninClick}>
             signin

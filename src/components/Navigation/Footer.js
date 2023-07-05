@@ -37,14 +37,14 @@ function Footer() {
           <b>MORINGA BLOG</b>
         </p>
         <button>
-        <p>
-          <b>ABOUT US</b>
-        </p>
+          <p>
+            <b>ABOUT US</b>
+          </p>
         </button>
         <button>
-        <p>
-          <b>ARTICLES</b>
-        </p>
+          <p>
+            <b>ARTICLES</b>
+          </p>
         </button>
       </div>
       <div className="footer-resources">
@@ -52,16 +52,15 @@ function Footer() {
           <b>RESOURCES</b>
         </p>
         <button>
-        <p>Terms and Conditions</p>
+          <p>Terms and Conditions</p>
         </button>
         <button>
-        <p>Privacy Policy</p>
+          <p>Privacy Policy</p>
         </button>
       </div>
       <Copyright sx={{ mt: 8, mb: 4 }} />
     </div>
   )
 }
-
 
 export default Footer

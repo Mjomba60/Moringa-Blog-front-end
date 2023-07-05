@@ -10,7 +10,7 @@ function SingleArticle() {
   const navigate = useNavigate()
   const routeParams = useParams()
 
-  console.log(routeParams)
+  // console.log(routeParams)
   const [ArticleData, setArticleData] = useState(null)
   const [form, setForm] = useState({})
   const [currentUser, setCurrentUser] = useState(null)
@@ -31,6 +31,7 @@ function SingleArticle() {
     let { id } = routeParams
     console.log(parseInt(id))
     GetArticleSingle(parseInt(id), setArticleData)
+    console.log("no 1")
   }, [routeParams])
 
   // useEffect(() => {
@@ -40,23 +41,27 @@ function SingleArticle() {
   useEffect(() => {
     if (ArticleData?.comments) {
       setComments(ArticleData.comments)
+      console.log("no 2")
     }
   }, [ArticleData?.comments])
   useEffect(() => {
     const user = location.state?.user
     user ? setCurrentUser(user) : setCurrentUser(null)
+    console.log("no 3")
     // setComments(data.comments)
   }, [location.state?.user])
 
   useEffect(() => {
     if (createData?.status === 200) {
       GetArticleSingle(ArticleData?.id, setArticleData)
+      console.log("no 4")
     }
   }, [ArticleData?.id, createData?.status])
 
   useEffect(() => {
     if (loadingDelete) {
       GetArticleSingle(ArticleData?.id, setArticleData)
+      console.log("no 5")
     }
   }, [ArticleData?.id, createData?.status, loadingDelete])
 
@@ -102,7 +107,57 @@ function SingleArticle() {
           width={300}
         />
         <p>{ArticleData ? ArticleData?.body : "No Information"}</p>
+
+        <hr />
         <div className="comment-box">
+          <Chip
+            label=" Edit Article"
+            variant="outlined"
+            onClick={(e) => {
+              e.preventDefault()
+              navigate(`/articles/edit/${ArticleData?.id}`, {
+                state: { data_to_edit: ArticleData, ...location.state },
+              })
+            }}
+          />
+        </div>
+      </div>
+      <div className="comment-section-general">
+        <div className="comment-section">
+          <p>{`${comments?.length}`} Comments</p>
+          {comments
+            ? comments.map((comment, index) => {
+                return (
+                  <div className="comment-box-comment" key={index}>
+                    <div className="comment-box-comment-user">
+                      <p>{comment.user.first_name}</p>
+                    </div>
+                    <div>
+                      <p>{comment.comments}</p>
+                      <p>{`posted at: ${comment.created_at}`}</p>
+                      {currentUser?.id === comment.user.id ? (
+                        <Chip
+                          label="delete comment"
+                          variant="outlined"
+                          onDelete={(e) => {
+                            e.preventDefault()
+                            DeleteComment(
+                              ArticleData?.id,
+                              comment.id,
+                              setLoadingDelete
+                            )
+                          }}
+                        />
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                  </div>
+                )
+              })
+            : ""}
+        </div>
+        <div className="comment-form-div">
           <form className="comment-form">
             <div>
               <label for="txtarea">Add Your comment: </label>
@@ -117,75 +172,32 @@ function SingleArticle() {
               ></textarea>
               <br />
               {/* <button onClick={handleSubmit}> Post comment</button> */}
-              <Chip
-                label=" Edit Article"
-                variant="outlined"
-                onClick={(e) => {
-                  e.preventDefault()
-                  navigate(`/articles/edit/${ArticleData?.id}`, {
-                    state: { data_to_edit: ArticleData, ...location.state },
-                  })
-                }}
-              />
-              <Chip
-                label=" Post comment"
-                variant="outlined"
-                onClick={(e) => {
-                  e.preventDefault()
-                  let comment_data = {
-                    article_id: ArticleData?.id,
-                    user_id: currentUser?.id,
-                    ...form,
-                  }
-                  console.log(comment_data)
-                  CreateComment(
-                    comment_data,
-                    ArticleData?.id,
-                    setLoading,
-                    setCreateData
-                  )
-                }}
-                // onClick={handleSubmit}
-              />
+
+              <div className="comment-button">
+                <Chip
+                  label=" Comment"
+                  variant="outlined"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    let comment_data = {
+                      article_id: ArticleData?.id,
+                      user_id: currentUser?.id,
+                      ...form,
+                    }
+                    console.log(comment_data)
+                    CreateComment(
+                      comment_data,
+                      ArticleData?.id,
+                      setLoading,
+                      setCreateData
+                    )
+                  }}
+                  // onClick={handleSubmit}
+                />
+              </div>
             </div>
           </form>
-          <hr />
         </div>
-      </div>
-
-      <div className="comment-section">
-        <p>{`${comments?.length}`} Comments</p>
-        {comments
-          ? comments.map((comment, index) => {
-              return (
-                <div className="comment-box-comment" key={index}>
-                  <div className="comment-box-comment-user">
-                    <p>{comment.user.first_name[0]}</p>
-                  </div>
-                  <div>
-                    <p>{comment.comments}</p>
-                    <p>{`posted at: ${comment.created_at}`}</p>
-                    {currentUser.id !== comment.user.id ? (
-                      ""
-                    ) : (
-                      <Chip
-                        label="delete comment"
-                        variant="outlined"
-                        onDelete={(e) => {
-                          e.preventDefault()
-                          DeleteComment(
-                            ArticleData?.id,
-                            comment.id,
-                            setLoadingDelete
-                          )
-                        }}
-                      />
-                    )}
-                  </div>
-                </div>
-              )
-            })
-          : ""}
       </div>
 
       {/* {console.log(ArticleData)} */}
