@@ -215,10 +215,6 @@ export default function CreateArticle() {
               <Editor
                 editorState={editorState}
                 onEditorStateChange={handleEditorChange}
-                toolbarClassName="toolbarClassName"
-                wrapperClassName="wrapperClassName"
-                editorClassName="editorClassName"
-                // onEditorStateChange={this.onEditorStateChange}
               />
               <textarea
                 name="body"
