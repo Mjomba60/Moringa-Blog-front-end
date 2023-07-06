@@ -2,12 +2,12 @@ import React from "react"
 import Teddybear from "../../assets/TeddyBear.png"
 import ProfileForm from "../forms/ProfileForm"
 import AnalyticsForm from "../forms/AnalyticsForm"
-// import { Button } from "semantic-ui-react"
-import React from "react";
-import Teddybear from "../../assets/TeddyBear.png";
-import ProfileForm from "../forms/ProfileForm";
-import AnalyticsForm from "../forms/AnalyticsForm";
-//import { Button } from "semantic-ui-react"
+import { Button } from "semantic-ui-react"
+// import React from "react";
+// import Teddybear from "../../assets/TeddyBear.png";
+// import ProfileForm from "../forms/ProfileForm";
+// import AnalyticsForm from "../forms/AnalyticsForm";
+// //import { Button } from "semantic-ui-react"
 
 function Profile() {
   return (
@@ -55,7 +55,7 @@ function Profile() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Profile;
+export default Profile

@@ -38,14 +38,14 @@ function Articles() {
 
   return (
     <div>
-      <div className="articles-recent-title">
+      {/* <div className="articles-recent-title">
         <p>
           <b>Recent posts</b>
         </p>
-        {/* <Link to="/articles" state={location.state}>
-            View all
-          </Link> */}
-      </div>
+        <Link to="/articles" state={location.state}>
+          View all
+        </Link>
+      </div> */}
       <div>
         <SearchComponent onSearch={handleSearch} />
       </div>
@@ -58,9 +58,9 @@ function Articles() {
               <PostData post={post} index={index} key={index} />
             ))}
       </div>
-      <div></div>
       <div className="articles-posts">
-        <h3>Blog</h3>
+        {/* <div className="grid grid-cols-2 md:grid-cols-4 space-x-2 space-y-3 mt-5"> */}
+        {/* <h3>Blog</h3> */}
         {PostListAll?.length === 0
           ? "Data Loading..."
           : PostListAll.map((post, index) => {

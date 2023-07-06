@@ -1,15 +1,14 @@
-
-import { useState } from "react";
-import React from "react";
+import { useState } from "react"
+import React from "react"
 
 const SearchComponent = ({ onSearch }) => {
-  const [searchCriteria, setSearchCriteria] = useState('');
+  const [searchCriteria, setSearchCriteria] = useState("")
 
   const handleInputChange = (event) => {
-    const { value } = event.target;
-    setSearchCriteria(value);
-    onSearch(value); 
-  };
+    const { value } = event.target
+    setSearchCriteria(value)
+    onSearch(value)
+  }
 
   return (
     <div>
@@ -18,28 +17,29 @@ const SearchComponent = ({ onSearch }) => {
         value={searchCriteria}
         onChange={handleInputChange}
         style={{
-          backgroundColor: 'lightblue',
-          fontWeight: 'bold',
-          borderRadius: '20px',
-          color: 'black',
-          padding: '5px',
+          backgroundColor: "lightblue",
+          fontWeight: "bold",
+          borderRadius: "20px",
+          color: "black",
+          padding: "5px",
+          marginTop: "20px",
         }}
       />
       <button
         onClick={() => onSearch(searchCriteria)}
         style={{
-          backgroundColor: 'darkblue',
-          fontWeight: 'bold',
-          borderRadius: '20px',
-          color: 'yellow',
-          padding: '5px 10px',
-          marginLeft: '5px',
+          backgroundColor: "darkblue",
+          fontWeight: "bold",
+          borderRadius: "20px",
+          color: "yellow",
+          padding: "5px 10px",
+          marginLeft: "5px",
         }}
       >
         Search
       </button>
     </div>
-  );
-};
+  )
+}
 
-export default SearchComponent;
+export default SearchComponent

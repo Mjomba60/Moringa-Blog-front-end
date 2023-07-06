@@ -9,6 +9,7 @@ function PostData({ post, index, inlist }) {
   return (
     <div
       className="post-list-container"
+      // className="grid grid-cols-2 md:grid-cols-4 space-x-2 space-y-3 mt-5"
       key={index}
       onClick={(e) => {
         e.preventDefault()

@@ -4,6 +4,11 @@ import { AiFillLike, AiOutlineLike } from "react-icons/ai"
 import { CreateComment, GetArticleSingle } from "../../api/api"
 import { DeleteComment, SendInteraction } from "../../api/api"
 import Chip from "@mui/material/Chip"
+import ThumbUpIcon from "@mui/icons-material/ThumbUp"
+import InstagramIcon from "@mui/icons-material/Instagram"
+import LinkedInIcon from "@mui/icons-material/LinkedIn"
+import LocalPostOfficeIcon from "@mui/icons-material/LocalPostOffice"
+import TwitterIcon from "@mui/icons-material/Twitter"
 
 function SingleArticle() {
   const location = useLocation()
@@ -25,7 +30,7 @@ function SingleArticle() {
   const [comments, setComments] = useState(null)
   const [loading, setLoading] = useState(false)
   const [loadingDelete, setLoadingDelete] = useState(null)
-  const [likes, setLikes] = useState([]);
+  const [likes, setLikes] = useState([])
 
   useEffect(() => {
     // setArticleData(data)
@@ -79,13 +84,13 @@ function SingleArticle() {
         article_id: ArticleData?.id,
         interaction_type: "like",
       }
-      const data = await SendInteraction(ArticleData?.id, int_data);
-      setData(data);
-      setLikes(data.likes);
+      const data = await SendInteraction(ArticleData?.id, int_data)
+      setData(data)
+      setLikes(data.likes)
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   const handleDislike = async () => {
     try {
@@ -94,30 +99,33 @@ function SingleArticle() {
         article_id: ArticleData?.id,
         interaction_type: "dislike",
       }
-      const data = await SendInteraction(ArticleData?.id, int_data);
-      setData(data);
+      const data = await SendInteraction(ArticleData?.id, int_data)
+      setData(data)
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   return (
     <div className="singlearticle-majordiv">
       <div className="article-window">
-        <h1 style={{ textDecoration: 'underline'}}>{ArticleData ? ArticleData.title : "Single Article"}</h1>
-        <h6 style={{ textDecoration: 'underline'}}>
+        <h1 style={{ textDecoration: "underline" }}>
+          {ArticleData ? ArticleData.title : "Single Article"}
+        </h1>
+        <h6 style={{ textDecoration: "underline" }}>
           {ArticleData?.author_name && ArticleData?.date
             ? `By ${ArticleData?.author_name} ${ArticleData?.date}`
             : "Anonymous Author"}
         </h6>
         <div className="article-interaction">
-        <ul>
-          {likes.map((like) => (
-            <li key={like.id}>
-              User ID: {like.user_id}, Interaction Type: {like.interaction_type}
-            </li>
-          ))}
-        </ul>
+          <ul>
+            {likes.map((like) => (
+              <li key={like.id}>
+                User ID: {like.user_id}, Interaction Type:{" "}
+                {like.interaction_type}
+              </li>
+            ))}
+          </ul>
           <button
             // onClick={(e) => {
             //   e.preventDefault()
@@ -139,18 +147,20 @@ function SingleArticle() {
             {<AiFillLike />}
             {likes.length}
           </button>
-          <button 
-          // onClick={(e) => {
-          //   e.preventDefault()
-          //   let int_data = {
-          //     user_id: currentUser?.id,
-          //     article_id: ArticleData?.id,
-          //     interaction_type: "dislike",
-          //   }
-          //   SendInteraction(ArticleData?.id, int_data, setData)
-          // }}
-          onClick={handleDislike}
-          >{<AiOutlineLike />}</button>
+          <button
+            // onClick={(e) => {
+            //   e.preventDefault()
+            //   let int_data = {
+            //     user_id: currentUser?.id,
+            //     article_id: ArticleData?.id,
+            //     interaction_type: "dislike",
+            //   }
+            //   SendInteraction(ArticleData?.id, int_data, setData)
+            // }}
+            onClick={handleDislike}
+          >
+            {<AiOutlineLike />}
+          </button>
           <button>{ArticleData?.category}</button>
         </div>
 
@@ -217,16 +227,15 @@ function SingleArticle() {
               {/* <label for="txtarea">Add Your comment: </label> */}
               <br />
               {loading ? "Posting ..." : ""}
-              {/* <textarea
+              <textarea
                 id="txtarea"
                 name="comments"
                 placeholder="Comment here"
                 onChange={onchange}
                 value={form.comments || ""}
-              ></textarea> */}
+              ></textarea>
               <br />
               {/* <button onClick={handleSubmit}> Post comment</button> */}
-<<<<<<< HEAD
 
               <div className="comment-button">
                 <Chip
@@ -250,109 +259,11 @@ function SingleArticle() {
                   // onClick={handleSubmit}
                 />
               </div>
-=======
-              <Chip
-                label=" Edit Article"
-                variant="outlined"
-                onClick={(e) => {
-                  e.preventDefault()
-                  navigate(`/articles/edit/${ArticleData?.id}`, {
-                    state: { data_to_edit: ArticleData, ...location.state },
-                  })
-                }}
-              />
-              {/* <Chip
-                label=" Post comment"
-                variant="outlined"
-                onClick={(e) => {
-                  e.preventDefault()
-                  let comment_data = {
-                    article_id: ArticleData?.id,
-                    user_id: currentUser?.id,
-                    ...form,
-                  }
-                  console.log(comment_data)
-                  CreateComment(
-                    comment_data,
-                    ArticleData?.id,
-                    setLoading,
-                    setCreateData
-                  )
-                }}
-                // onClick={handleSubmit}
-              /> */}
->>>>>>> refs/remotes/origin/development
             </div>
           </form>
         </div>
       </div>
 
-<<<<<<< HEAD
-=======
-      <div className="comment-section">
-        <p style={{ fontWeight: 'bold', textDecoration: 'underline' }}>{`${comments?.length}`} Comments</p>
-        {comments
-          ? comments.map((comment, index) => {
-              return (
-                <div className="comment-box-comment" key={index}>
-                  <div className="comment-box-comment-user">
-                    <p style={{ fontWeight: 'bold' }}>{comment.user.first_name}</p>
-                  {/* </div>
-                  <div> */}
-                    <p>{comment.comments}</p>
-                    {/* <p>{`posted at: ${comment.created_at}`}</p> */}
-                    {currentUser.id !== comment.user.id ? (
-                      ""
-                    ) : (
-                      <Chip
-                        label="delete comment"
-                        variant="outlined"
-                        onDelete={(e) => {
-                          e.preventDefault()
-                          DeleteComment(
-                            ArticleData?.id,
-                            comment.id,
-                            setLoadingDelete
-                          )
-                        }}
-                      />
-                    )}
-                  </div>
-                </div>
-              )
-            })
-        : ""}
-        <div className="text">
-          <textarea
-            id="txtarea"
-            name="comments"
-            placeholder="Comment here"
-            onChange={onchange}
-            value={form.comments || ""}
-          ></textarea>
-          <Chip
-            label=" Post comment"
-            variant="outlined"
-            onClick={(e) => {
-              e.preventDefault()
-              let comment_data = {
-                article_id: ArticleData?.id,
-                user_id: currentUser?.id,
-                ...form,
-              }
-              console.log(comment_data)
-              CreateComment(
-                comment_data,
-                ArticleData?.id,
-                setLoading,
-                setCreateData
-              )
-            }}
-            // onClick={handleSubmit}
-          /></div>
-      </div>
-
->>>>>>> refs/remotes/origin/development
       {/* {console.log(ArticleData)} */}
     </div>
   )
