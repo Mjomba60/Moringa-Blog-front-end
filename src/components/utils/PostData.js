@@ -16,19 +16,17 @@ function PostData({ post, index, inlist }) {
           state: { article_data: post, ...location.state },
         })
       }}
-    >
-      <div className="post-list-image">
-        {inlist ? (
-          ""
-        ) : (
-          <img src={post.image_url} alt={post.title} height={150} width={150} />
-        )}
-      </div>
+  //style={{backgroundImage: `url(${post.image_url})`}}
+  >
 
       <div className="post-list-data">
-        <h6>{`Author: ${post.author_name}. ${post.date}`}</h6>
+        
         <h5>{post.title}</h5>
-        <p>{post.body}</p>
+        <div className="subcont">
+          <h6>By {`${post.author_name}`}</h6>
+          <h6>Category {`${post.category}`}</h6>
+          <h6>On {`${post.date}`}</h6>
+        </div>
         <div>
           <button>share{<FcShare />}</button>
           <button>{post.category}</button>
