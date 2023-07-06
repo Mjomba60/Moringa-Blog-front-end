@@ -87,19 +87,19 @@ function SingleArticle() {
     }
   };
 
-  const handleDislike = async () => {
-    try {
-      const int_data = {
-        user_id: currentUser?.id,
-        article_id: ArticleData?.id,
-        interaction_type: "dislike",
-      }
-      const data = await SendInteraction(ArticleData?.id, int_data);
-      setData(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const handleDislike = async () => {
+  //   try {
+  //     const int_data = {
+  //       user_id: currentUser?.id,
+  //       article_id: ArticleData?.id,
+  //       interaction_type: "dislike",
+  //     }
+  //     const data = await SendInteraction(ArticleData?.id, int_data);
+  //     setData(data);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   return (
     <div className="singlearticle-majordiv">
@@ -139,7 +139,7 @@ function SingleArticle() {
             {<AiFillLike />}
             {likes.length}
           </button>
-          <button 
+          {/* <button 
           // onClick={(e) => {
           //   e.preventDefault()
           //   let int_data = {
@@ -150,7 +150,7 @@ function SingleArticle() {
           //   SendInteraction(ArticleData?.id, int_data, setData)
           // }}
           onClick={handleDislike}
-          >{<AiOutlineLike />}</button>
+          >{<AiOutlineLike />}</button> */}
           <button>{ArticleData?.category}</button>
         </div>
 
