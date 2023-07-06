@@ -29,6 +29,12 @@ function Articles() {
     setSearchResults(filteredResults)
   }
 
+  const allArticles = PostListAll.map(post => {
+    return (
+      <PostData key={post.id} post={post}/>
+    )
+  })
+
   useEffect(() => {
     GetArticleMany(setPostListAll)
     console.log("here")
@@ -38,36 +44,12 @@ function Articles() {
 
   return (
     <div>
-      <div className="articles-recent-title">
-        <p>
-          <b>Recent posts</b>
-        </p>
-        {/* <Link to="/articles" state={location.state}>
-            View all
-          </Link> */}
-      </div>
       <div>
         <SearchComponent onSearch={handleSearch} />
       </div>
-      <div className="articles-recents">
-        {searchResults.length > 0
-          ? searchResults.map((post, index) => (
-              <PostData post={post} index={index} key={index} />
-            ))
-          : PostList.map((post, index) => (
-              <PostData post={post} index={index} key={index} />
-            ))}
+      <div className="allarticles">
+        {allArticles}
       </div>
-      <div></div>
-      <div className="articles-posts">
-        <h3>Blog</h3>
-        {PostListAll?.length === 0
-          ? "Data Loading..."
-          : PostListAll.map((post, index) => {
-              return <PostData post={post} index={index} inlist={true} />
-            })}
-      </div>
-      <hr />
     </div>
   )
 }

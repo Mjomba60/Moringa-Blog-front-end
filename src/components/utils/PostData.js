@@ -1,6 +1,8 @@
 import React from "react"
 import { FcShare } from "react-icons/fc"
 import { useNavigate, useLocation } from "react-router-dom"
+import commentimg from "../../assets/uil_comment.png"
+import likeimg from "../../assets/solar_like-linear.svg"
 
 function PostData({ post, index, inlist }) {
   const navigate = useNavigate()
@@ -9,10 +11,9 @@ function PostData({ post, index, inlist }) {
   return (
     <div
       className="post-list-container"
-      key={index}
       onClick={(e) => {
         e.preventDefault()
-        navigate(`/articles/${index + 1}`, {
+        navigate(`/articles/${post.id}`, {
           state: { article_data: post, ...location.state },
         })
       }}
@@ -25,11 +26,14 @@ function PostData({ post, index, inlist }) {
         <div className="subcont">
           <h6>By {`${post.author_name}`}</h6>
           <h6>Category {`${post.category}`}</h6>
-          <h6>On {`${post.date}`}</h6>
         </div>
-        <div>
-          <button>share{<FcShare />}</button>
-          <button>{post.category}</button>
+        <div className="article-bottom">
+          <div className="likecomm">
+            <img src={likeimg}/><span>{post.likes}</span>
+          </div>
+          <div className="likecomm">
+            <img src={commentimg}/><span>{post.comments.length}</span>
+          </div>
         </div>
       </div>
     </div>
