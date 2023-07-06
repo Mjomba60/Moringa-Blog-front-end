@@ -226,7 +226,6 @@ function SingleArticle() {
               ></textarea> */}
               <br />
               {/* <button onClick={handleSubmit}> Post comment</button> */}
-<<<<<<< HEAD
 
               <div className="comment-button">
                 <Chip
@@ -250,45 +249,11 @@ function SingleArticle() {
                   // onClick={handleSubmit}
                 />
               </div>
-=======
-              <Chip
-                label=" Edit Article"
-                variant="outlined"
-                onClick={(e) => {
-                  e.preventDefault()
-                  navigate(`/articles/edit/${ArticleData?.id}`, {
-                    state: { data_to_edit: ArticleData, ...location.state },
-                  })
-                }}
-              />
-              {/* <Chip
-                label=" Post comment"
-                variant="outlined"
-                onClick={(e) => {
-                  e.preventDefault()
-                  let comment_data = {
-                    article_id: ArticleData?.id,
-                    user_id: currentUser?.id,
-                    ...form,
-                  }
-                  console.log(comment_data)
-                  CreateComment(
-                    comment_data,
-                    ArticleData?.id,
-                    setLoading,
-                    setCreateData
-                  )
-                }}
-                // onClick={handleSubmit}
-              /> */}
->>>>>>> refs/remotes/origin/development
             </div>
           </form>
         </div>
       </div>
 
-<<<<<<< HEAD
-=======
       <div className="comment-section">
         <p style={{ fontWeight: 'bold', textDecoration: 'underline' }}>{`${comments?.length}`} Comments</p>
         {comments
@@ -352,7 +317,6 @@ function SingleArticle() {
           /></div>
       </div>
 
->>>>>>> refs/remotes/origin/development
       {/* {console.log(ArticleData)} */}
     </div>
   )
