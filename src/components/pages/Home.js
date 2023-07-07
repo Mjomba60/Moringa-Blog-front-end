@@ -1,7 +1,7 @@
 import React from "react"
 import HomeData from "../utils/HomeData"
 import HomeData2 from "../utils/HomeData2"
-import HomeData3 from "../utils/HomeData3"
+// import HomeData3 from "../utils/HomeData3"
 // import { useLocation } from "react-router-dom"
 
 function Home() {
@@ -18,7 +18,7 @@ function Home() {
     <div className="home-padding">
       <div>{<HomeData />}</div>
       <div>{<HomeData2 />}</div>
-      <div>{<HomeData3 />}</div>
+      {/* <div>{<HomeData3 />}</div> */}
     </div>
   )
 }

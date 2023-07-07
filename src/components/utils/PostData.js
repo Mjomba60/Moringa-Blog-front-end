@@ -32,7 +32,7 @@ function PostData({ post, index, inlist }) {
             <img src={likeimg}/><span>{post.likes}</span>
           </div>
           <div className="likecomm">
-            <img src={commentimg}/><span>{post.comments.length}</span>
+            <img src={commentimg}/><span>9</span>
           </div>
         </div>
       </div>
