@@ -3,7 +3,8 @@ import axiosFetch from "../Axios"
 
 export const RegisterUser = (userData, setData, setError) => {
   axiosFetch()
-    .post("/users", userData)
+    // .post("/users", userData)
+    .post("/signup", userData)
     .then((response) => {
       console.log(response)
       setData(response)

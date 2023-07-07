@@ -87,8 +87,18 @@
   justify-content: space-around;
   background-color: white;
   width: 100%;
+  position: relative;
 }
 
+.navigation::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: black;
+}
 .navigation-group-1 {
   display: flex;
   flex-direction: row;
@@ -153,7 +163,7 @@
 .app-main {
   height: fit-content;
   /* width: fit-content; */
-  background-color: rgb(237, 247, 250, 1);
+  background-color: #e6f4f1;
   /* background: rgb(179, 253, 129); */
 }
 
@@ -271,65 +281,149 @@
   border-radius: 5px;
   box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.4);
 }
-
-.home-first {
+.container {
   display: flex;
-  justify-content: left;
+  justify-content: center;
   align-items: center;
-  background-color: black;
+  flex-direction: column;
+  padding: 0 18%;
 }
 
-.home-first-text {
-  text-align: center;
-  margin: 10px;
-  flex: 1;
-  color: white;
-  font-size: 30px;
+.welcome-text {
+  text-align: left; /* Set text alignment to left */
+  margin: 0; /* Remove margin */
+  margin-left: 21.5%;
+  padding: 0; /* Remove padding */
+  font-size: 2.5rem; /* Adjust font size as needed */
+  line-height: 1; /* Set line-height to 1 */
+  position: absolute;
+  top: 5%;
+  left: 0; /* Position the text to the left */
 }
 
 .home-first-image {
+  position: relative;
+  width: 110%;
+  overflow: hidden;
+  margin-top: 40px;
+  margin-left: 0; /* Set margin-left to 0 */
+}
+.home-first-content {
   display: flex;
   align-items: center;
-  flex: 2;
-  overflow: hidden;
+  justify-content: center;
 }
 
 .home-first-image img {
   width: 100%;
-  height: 50%;
+  height: auto;
 }
-.home-second {
+
+.text-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
-  justify-content: space-around;
-  background-image: url("/src/assets/colorblend.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  align-items: center;
+  justify-content: center;
 }
 
-.home-second-text {
-  background-color: rgba(2, 73, 255, 1);
-  font-weight: bolder;
-}
-
-.home-second-text button {
-  /* display: block; */
-  /* padding: 10px; */
-  color: blue;
-  border: none;
-  border-radius: 5px;
-  margin: 10px;
-  padding: 10px;
-  background-color: rgb(212, 212, 212);
-  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.4);
-}
-
-.home-second-text p {
+.overlay-text {
+  text-align: center;
   color: white;
+  padding: 20px;
+}
+
+.overlay-text p {
+  margin: 10px;
+  font-size: 5rem;
+}
+
+.Home-second-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.Home-second-box {
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  background-color: #f0f0f0;
+  font-family: "Open Sans", sans-serif;
+}
+
+.Home-second-box1 {
+  width: 735px;
+  height: 285px;
+}
+
+.Home-second-box1 h2 {
+  font-size: 1.7rem;
+}
+
+.Home-second-box1 p {
+  font-size: 1.3rem;
+}
+
+.Home-second-box2 {
+  width: 735px;
+  height: 397px;
+}
+.Home-second-box2 p {
+  font-size: 2.5rem;
+}
+
+.Home-second-box2 h2 {
+  font-size: 4rem;
+  color: #ffe45e;
+}
+.Home-second-box3 {
+  width: 381px;
+  height: 735px;
+}
+
+.Home-second-box3 p {
+  font-size: 2rem;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+.Home-second-box3 h2 {
+  font-size: 5.5rem;
+}
+p {
+  margin-bottom: 0.5rem;
+}
+
+.large-text {
+  font-size: 2rem;
+}
+
+.highlight {
+  color: blue;
+}
+.blue-text {
+  color: #0000ff;
+}
+.Home-second-box1 {
+  background-color: #d9d9d9;
+}
+
+.Home-second-box2 {
+  background-color: #5e93c2;
+}
+
+.Home-second-box3 {
+  background-color: #009bf9;
 }
 
 .app-main .home-padding {
-  padding: 100px;
+  padding: 40px;
 }
 
 .article-body {
