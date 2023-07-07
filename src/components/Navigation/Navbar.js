@@ -5,12 +5,8 @@ import Icon from "../../assets/Icon.png"
 function Navbar() {
   const navigate = useNavigate()
   const location = useLocation()
-<<<<<<< HEAD
-  const [hasUser, setHasUser] = useState(false)
-=======
   const [hasUser, setHasUser] = useState({})
   const [currentUser, setCurrentUser] = useState(null)
->>>>>>> 069c2e67868c1146bb2beb6d49994f34177831d9
 
   useEffect(() => {
     const user = location.state?.user
@@ -24,10 +20,23 @@ function Navbar() {
       state: { user: currentUser, ...location.state },
     })
   }
+  const handleProfileClick = (e) => {
+    e.preventDefault()
+    navigate("/profile", {
+      state: { user: currentUser, ...location.state },
+    })
+  }
 
   const handleSigninClick = (e) => {
     e.preventDefault()
     navigate("/signin")
+  }
+
+  const handleSignOutClick = (e) => {
+    e.preventDefault()
+    navigate("/", {
+      state: {},
+    })
   }
   return (
     <div className="navigation">
@@ -65,7 +74,14 @@ function Navbar() {
           +
         </button>
         {hasUser ? (
-          <button className="profile-button">Profile</button>
+          <>
+            <button className="profile-button" onClick={handleProfileClick}>
+              Profile
+            </button>
+            <button className="signout-button" onClick={handleSignOutClick}>
+              SignOut
+            </button>
+          </>
         ) : (
           <button className="profile-button" onClick={handleSigninClick}>
             signin

@@ -1,6 +1,8 @@
 import React from "react"
 import { FcShare } from "react-icons/fc"
 import { useNavigate, useLocation } from "react-router-dom"
+import commentimg from "../../assets/uil_comment.png"
+import likeimg from "../../assets/solar_like-linear.svg"
 
 function PostData({ post, index, inlist }) {
   const navigate = useNavigate()
@@ -9,29 +11,29 @@ function PostData({ post, index, inlist }) {
   return (
     <div
       className="post-list-container"
-      key={index}
       onClick={(e) => {
         e.preventDefault()
-        navigate(`/articles/${index + 1}`, {
+        navigate(`/articles/${post.id}`, {
           state: { article_data: post, ...location.state },
         })
       }}
+      //style={{backgroundImage: `url(${post.image_url})`}}
     >
-      <div className="post-list-image">
-        {inlist ? (
-          ""
-        ) : (
-          <img src={post.image_url} alt={post.title} height={150} width={150} />
-        )}
-      </div>
-
       <div className="post-list-data">
-        <h6>{`Author: ${post.author_name}. ${post.date}`}</h6>
         <h5>{post.title}</h5>
-        <p>{post.body}</p>
-        <div>
-          <button>share{<FcShare />}</button>
-          <button>{post.category}</button>
+        <div className="subcont">
+          <h6>By {`${post.author_name}`}</h6>
+          <h6>Category {`${post.category}`}</h6>
+        </div>
+        <div className="article-bottom">
+          <div className="likecomm">
+            <img src={likeimg} />
+            <span>{post.likes}</span>
+          </div>
+          <div className="likecomm">
+            <img src={commentimg} />
+            <span>9</span>
+          </div>
         </div>
       </div>
     </div>
