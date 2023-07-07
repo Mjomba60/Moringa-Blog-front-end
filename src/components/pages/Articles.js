@@ -29,6 +29,10 @@ function Articles() {
     setSearchResults(filteredResults)
   }
 
+  const allArticles = PostListAll.map((post) => {
+    return <PostData key={post.id} post={post} />
+  })
+
   useEffect(() => {
     GetArticleMany(setPostListAll)
     console.log("here")
@@ -49,15 +53,7 @@ function Articles() {
       <div>
         <SearchComponent onSearch={handleSearch} />
       </div>
-      <div className="articles-recents">
-        {searchResults.length > 0
-          ? searchResults.map((post, index) => (
-              <PostData post={post} index={index} key={index} />
-            ))
-          : PostList.map((post, index) => (
-              <PostData post={post} index={index} key={index} />
-            ))}
-      </div>
+      <div className="allarticles">{allArticles}</div>
       <div className="articles-posts">
         {/* <div className="grid grid-cols-2 md:grid-cols-4 space-x-2 space-y-3 mt-5"> */}
         {/* <h3>Blog</h3> */}

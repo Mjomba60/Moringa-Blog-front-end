@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 import HomeData from "../utils/HomeData"
 import HomeData2 from "../utils/HomeData2"
 // import HomeData3 from "../utils/HomeData3"
-import { useLocation } from "react-router-dom"
+// import { useLocation } from "react-router-dom"
 
 function Home() {
   // const [currentUser, setCurrentUser] = useState(null)
