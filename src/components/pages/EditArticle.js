@@ -60,6 +60,7 @@ export default function EditArticle() {
   const [topicCategory, setTopicCategory] = useState([])
   const [currentUser, setCurrentUser] = useState(null)
   const [hasUser, setHasUser] = useState(false)
+  console.log(hasUser)
   const [resp, setResponse] = useState(null)
 
   const location = useLocation()
@@ -95,7 +96,7 @@ export default function EditArticle() {
     }
     // console.log("in useffect")
     // console.log(resp)
-  }, [resp])
+  }, [location.state, navigate, paramsRoute.id, resp])
 
   const handleSubmit = (event) => {
     event.preventDefault()

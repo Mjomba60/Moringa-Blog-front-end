@@ -15,12 +15,7 @@ function Profile() {
       <div className="major-div">
         <div className="left-div">
           <div className="teddybear-img">
-            <img
-              src={Teddybear}
-              alt="Teddybear-image"
-              height={400}
-              width={400}
-            />
+            <img src={Teddybear} alt="Teddybear" height={400} width={400} />
           </div>
           <div className="user-form">
             <ProfileForm />

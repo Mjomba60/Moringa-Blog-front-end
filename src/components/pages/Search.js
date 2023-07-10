@@ -7,7 +7,7 @@ const SearchComponent = ({ onSearch }) => {
   const handleInputChange = (event) => {
     const { value } = event.target
     setSearchCriteria(value)
-    onSearch(value)
+    onSearch(event.target.value)
   }
 
   return (

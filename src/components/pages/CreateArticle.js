@@ -1,32 +1,32 @@
-import React, { useState, useEffect } from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import { useTheme } from "@mui/material/styles";
-import DocumentScannerIcon from "@mui/icons-material/DocumentScanner";
+import React, { useState, useEffect } from "react"
+import Avatar from "@mui/material/Avatar"
+import Button from "@mui/material/Button"
+import CssBaseline from "@mui/material/CssBaseline"
+import TextField from "@mui/material/TextField"
+import { useTheme } from "@mui/material/styles"
+import DocumentScannerIcon from "@mui/icons-material/DocumentScanner"
 
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import { useLocation, useNavigate } from "react-router-dom";
-import { CreateArticlePost } from "../../api/api";
-import axios from "axios";
+import Box from "@mui/material/Box"
+import Typography from "@mui/material/Typography"
+import Container from "@mui/material/Container"
+import { createTheme, ThemeProvider } from "@mui/material/styles"
+import InputLabel from "@mui/material/InputLabel"
+import MenuItem from "@mui/material/MenuItem"
+import FormControl from "@mui/material/FormControl"
+import Select from "@mui/material/Select"
+import { useLocation, useNavigate } from "react-router-dom"
+import { CreateArticlePost } from "../../api/api"
+import axios from "axios"
 
-import OutlinedInput from "@mui/material/OutlinedInput";
-import Chip from "@mui/material/Chip";
-import { Editor } from "react-draft-wysiwyg";
-import { EditorState, convertToRaw, convertToHTML } from "draft-js";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import OutlinedInput from "@mui/material/OutlinedInput"
+import Chip from "@mui/material/Chip"
+import { Editor } from "react-draft-wysiwyg"
+import { EditorState, convertToRaw } from "draft-js"
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css"
 
 // TODO remove, this demo shouldn't need to reset the theme.
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
+const ITEM_HEIGHT = 48
+const ITEM_PADDING_TOP = 8
 const MenuProps = {
   PaperProps: {
     style: {
@@ -34,7 +34,7 @@ const MenuProps = {
       width: 250,
     },
   },
-};
+}
 
 const categories = [
   "food",
@@ -43,7 +43,7 @@ const categories = [
   "science",
   "Technology",
   "Programming",
-];
+]
 
 function getStyles(name, personName, theme) {
   return {
@@ -51,59 +51,60 @@ function getStyles(name, personName, theme) {
       personName.indexOf(name) === -1
         ? theme.typography.fontWeightRegular
         : theme.typography.fontWeightMedium,
-  };
+  }
 }
 
-const defaultTheme = createTheme();
+const defaultTheme = createTheme()
 
 export default function CreateArticle() {
-  const theme = useTheme();
-  const [form, setForm] = useState({});
-  const [topicCategory, setTopicCategory] = useState([]);
-  const [currentUser, setCurrentUser] = useState(null);
-  const [hasUser, setHasUser] = useState(false);
-  const [resp, setResponse] = useState(null);
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  const theme = useTheme()
+  const [form, setForm] = useState({})
+  const [topicCategory, setTopicCategory] = useState([])
+  const [currentUser, setCurrentUser] = useState(null)
+  const [hasUser, setHasUser] = useState(false)
+  console.log(hasUser);
+  const [resp, setResponse] = useState(null)
+  const [editorState, setEditorState] = useState(EditorState.createEmpty())
 
-  const location = useLocation();
-  const navigate = useNavigate();
+  const location = useLocation()
+  const navigate = useNavigate()
 
   useEffect(() => {
-    const user = location.state?.user;
-    console.log(user);
-    user ? setCurrentUser(user) : setCurrentUser(null);
-    user ? setHasUser(true) : setHasUser(false);
-  }, [location.state?.user]);
+    const user = location.state?.user
+    console.log(user)
+    user ? setCurrentUser(user) : setCurrentUser(null)
+    user ? setHasUser(true) : setHasUser(false)
+  }, [location.state?.user])
 
   useEffect(() => {
     if (resp?.status === 200) {
-      console.log(resp.data.id);
+      console.log(resp.data.id)
       navigate(`/articles/${resp.data.id}`, {
         state: { article_data: resp.data, user: currentUser },
-      });
+      })
     }
     // console.log("in useffect")
     // console.log(resp)
-  }, [resp]);
+  }, [currentUser, navigate, resp])
 
   const handleSubmit = (event) => {
-    event.preventDefault();
+    event.preventDefault()
 
-    const author_name_long = `${currentUser?.first_name}_${currentUser?.last_name}`;
+    const author_name_long = `${currentUser?.first_name}_${currentUser?.last_name}`
 
     let data_to_send = {
       author_name: author_name_long,
       date: new Date().toString(),
       ...form,
-    };
+    }
 
-    console.log(data_to_send);
-    CreateArticlePost(data_to_send, setResponse);
-  };
+    console.log(data_to_send)
+    CreateArticlePost(data_to_send, setResponse)
+  }
 
   const onchange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+    setForm({ ...form, [e.target.name]: e.target.value })
+  }
 
   const RandomImage = (topic) => {
     return axios
@@ -114,40 +115,46 @@ export default function CreateArticle() {
         },
       })
       .then((response) => {
-        console.log(response.data.urls.regular);
+        console.log(response.data.urls.regular)
         return setForm({
           ...form,
           image_url: response.data.urls.regular,
           category: topic,
-        });
-      });
-  };
+        })
+      })
+  }
   const onchangeselect = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     // const categry = e.target.value
     const {
       target: { value },
-    } = e;
+    } = e
     setTopicCategory(
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
-    );
-    RandomImage(topicCategory);
-  };
+    )
+    RandomImage(topicCategory)
+  }
 
   // const handleChange = (event: SelectChangeEvent) => {
   //   setForm({ ...form, [event.target.name]: event.target.value })
   // }
 
   const handleEditorChange = (state) => {
-    setEditorState(state);
-  };
+    setEditorState(state)
+    // console.log(convertToRaw(editorState.getCurrentContent()).blocks[0].text)
+    setForm({
+      ...form,
+      // body: convertToRaw(editorState.getCurrentContent()),
+      body: convertToRaw(editorState.getCurrentContent()).blocks[0].text,
+    })
+  }
 
-  const handleSaveArticle = () => {
-    const contentState = editorState.getCurrentContent();
-    const rawContentState = convertToRaw(contentState);
-    const htmlContent = convertToHTML(rawContentState);
-  };
+  // const handleSaveArticle = () => {
+  //   const contentState = editorState.getCurrentContent();
+  //   const rawContentState = convertToRaw(contentState);
+  //   const htmlContent = convertToHTML(rawContentState);
+  // };
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -213,17 +220,25 @@ export default function CreateArticle() {
           <FormControl fullWidth>
             <div>
               <Editor
+                wrapperStyle={{
+                  width: `inherit`,
+                }}
                 editorState={editorState}
                 onEditorStateChange={handleEditorChange}
+                editorStyle={{
+                  background: `#FFFFFF`,
+                  borderStyle: `ridge`,
+                  textAlign: `start`,
+                }}
               />
-              <textarea
+              {/* <textarea
                 name="body"
                 className="article-body"
                 onChange={onchange}
                 value={form.body || ""}
                 rows="9"
                 cols="70"
-              ></textarea>
+              ></textarea> */}
             </div>
           </FormControl>
 
@@ -240,5 +255,5 @@ export default function CreateArticle() {
         {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
       </Container>
     </ThemeProvider>
-  );
+  )
 }

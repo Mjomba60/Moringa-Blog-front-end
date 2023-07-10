@@ -151,6 +151,18 @@ export default function SignUp() {
               onChange={onchange}
               value={form.password || ""}
             />
+            {/* <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password_confirmation"
+              label="Confirm Password"
+              type="password"
+              id="confirm_password"
+              autoComplete="current-password"
+              onChange={onchange}
+              value={form.password_confirmation || ""}
+            /> */}
 
             <Button
               type="submit"

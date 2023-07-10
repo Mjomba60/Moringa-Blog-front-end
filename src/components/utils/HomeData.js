@@ -1,5 +1,5 @@
-import React from "react";
-import Moonimage from "../../assets/home.png";
+import React from "react"
+import Moonimage from "../../assets/home.png"
 
 function HomeData() {
   return (
@@ -10,11 +10,11 @@ function HomeData() {
       <div className="home-first">
         <div className="home-first-content">
           <div className="home-first-image">
-            <img src={Moonimage} alt="moon-Image" />
+            <img src={Moonimage} alt="moon" />
             <div className="text-overlay">
               <div className="overlay-text">
                 <p>
-                  <b>INSPIRE</b> 
+                  <b>INSPIRE</b>
                 </p>
                 <p>AND GET</p>
                 <p>INSPIRED</p>
@@ -24,7 +24,7 @@ function HomeData() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default HomeData;
+export default HomeData

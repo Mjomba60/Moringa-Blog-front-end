@@ -5,7 +5,7 @@ function AnalyticsForm() {
     <div className="Analytics-form">
       <form>
         <div>
-          <label for="analytics-blogsread">Blogs Read : </label>
+          <label htmlFor="analytics-blogsread">Blogs Read : </label>
           <input
             name="username"
             id="analytics-blogread"
@@ -14,7 +14,7 @@ function AnalyticsForm() {
           ></input>
         </div>
         <div>
-          <label for="analytics-blogsliked">Blogs Liked : </label>
+          <label htmlFor="analytics-blogsliked">Blogs Liked : </label>
           <input
             name="username"
             id="analytics-blogsliked"
@@ -23,7 +23,7 @@ function AnalyticsForm() {
           ></input>
         </div>
         <div>
-          <label for="analytics-similarinterest">
+          <label htmlFor="analytics-similarinterest">
             People with <br /> Similar Interests :
           </label>
           <input
@@ -34,7 +34,7 @@ function AnalyticsForm() {
           ></input>
         </div>
         <div>
-          <label for="analytics-blogscommented">Blogs Commented : </label>
+          <label htmlFor="analytics-blogscommented">Blogs Commented : </label>
           <input
             name="username"
             id="analytics-blogscommented"

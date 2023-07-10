@@ -1,5 +1,4 @@
 import React from "react"
-import { FcShare } from "react-icons/fc"
 import { useNavigate, useLocation } from "react-router-dom"
 import commentimg from "../../assets/uil_comment.png"
 import likeimg from "../../assets/solar_like-linear.svg"
@@ -27,11 +26,11 @@ function PostData({ post, index, inlist }) {
         </div>
         <div className="article-bottom">
           <div className="likecomm">
-            <img src={likeimg} />
+            <img src={likeimg} alt="like" />
             <span>{post.likes}</span>
           </div>
           <div className="likecomm">
-            <img src={commentimg} />
+            <img src={commentimg} alt="comment" />
             <span>9</span>
           </div>
         </div>

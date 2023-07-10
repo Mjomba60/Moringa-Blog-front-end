@@ -17,7 +17,7 @@ function ProfileForm() {
     <div className="Profile-form">
       <form>
         <div>
-          <label for="profile-firstname">First Name : </label>
+          <label htmlFor="profile-firstname">First Name : </label>
           <input
             name="username"
             id="profile-firstname"
@@ -30,7 +30,7 @@ function ProfileForm() {
           ></input>
         </div>
         <div>
-          <label for="profile-lastname">Last Name : </label>
+          <label htmlFor="profile-lastname">Last Name : </label>
           <input
             name="username"
             id="profile-lastname"
@@ -41,7 +41,7 @@ function ProfileForm() {
           ></input>
         </div>
         <div>
-          <label for="profile-username">User Name : </label>
+          <label htmlFor="profile-username">User Name : </label>
           <input
             name="username"
             id="profile-username"
@@ -52,7 +52,7 @@ function ProfileForm() {
           ></input>
         </div>
         <div>
-          <label for="profile-email">Email : </label>
+          <label htmlFor="profile-email">Email : </label>
           <input
             name="username"
             id="profile-email"
