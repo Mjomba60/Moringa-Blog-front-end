@@ -105,6 +105,7 @@ function SingleArticle() {
       }
       const data = await SendInteraction(ArticleData?.id, int_data)
       setData(data)
+      console.log(Data)
       setLikes(data.likes)
     } catch (error) {
       console.error(error)
