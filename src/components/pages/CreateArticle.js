@@ -5,6 +5,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import { useTheme } from "@mui/material/styles";
 import DocumentScannerIcon from "@mui/icons-material/DocumentScanner";
+import RichEditor from "../Editor";
 
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -63,7 +64,8 @@ export default function CreateArticle() {
   const [currentUser, setCurrentUser] = useState(null);
   const [hasUser, setHasUser] = useState(false);
   const [resp, setResponse] = useState(null);
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  
+  const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -117,7 +119,6 @@ export default function CreateArticle() {
         console.log(response.data.urls.regular);
         return setForm({
           ...form,
-          image_url: response.data.urls.regular,
           category: topic,
         });
       });
@@ -141,13 +142,14 @@ export default function CreateArticle() {
 
   const handleEditorChange = (state) => {
     setEditorState(state);
+    setForm({...form, content: convertToRaw(editorState.getCurrentContent())})
   };
 
-  const handleSaveArticle = () => {
-    const contentState = editorState.getCurrentContent();
-    const rawContentState = convertToRaw(contentState);
-    const htmlContent = convertToHTML(rawContentState);
-  };
+  // const handleSaveArticle = () => {
+  //   const contentState = editorState.getCurrentContent();
+  //   const rawContentState = convertToRaw(contentState);
+  //   const htmlContent = convertToHTML(rawContentState);
+  // };
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -213,17 +215,25 @@ export default function CreateArticle() {
           <FormControl fullWidth>
             <div>
               <Editor
+              wrapperStyle={{
+                width: `inherit`
+              }}
                 editorState={editorState}
                 onEditorStateChange={handleEditorChange}
+                editorStyle={{
+                  background: `#FFFFFF`,
+                  borderStyle: `ridge`,
+                  textAlign: `start`
+                }}
               />
-              <textarea
+              {/* <textarea
                 name="body"
                 className="article-body"
                 onChange={onchange}
                 value={form.body || ""}
                 rows="9"
                 cols="70"
-              ></textarea>
+              ></textarea> */}
             </div>
           </FormControl>
 

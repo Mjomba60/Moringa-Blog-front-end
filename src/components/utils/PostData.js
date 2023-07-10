@@ -22,7 +22,7 @@ function PostData({ post, index, inlist }) {
       <div className="post-list-data">
         <h5>{post.title}</h5>
         <div className="subcont">
-          <h6>By {`${post.author_name}`}</h6>
+          <h6>By {`${post.author.name}`}</h6>
           <h6>Category {`${post.category}`}</h6>
         </div>
         <div className="article-bottom">

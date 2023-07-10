@@ -55,26 +55,10 @@ export default function SignIn() {
   }, [navigate, error, data?.status, data?.data, data?.statusText])
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Grid container component="main" sx={{ height: "100vh" }}>
+      <Grid container component="main" sx={{ height: "100vh" }} display = {"flex"} flexDirection={"row"} justifyContent={"center"} marginTop={"32px"}>
         <CssBaseline />
-        <Grid
-          item
-          xs={false}
-          sm={4}
-          md={7}
-          sx={{
-            backgroundImage:
-              "url(https://source.unsplash.com/random?wallpapers)",
-            backgroundRepeat: "no-repeat",
-            backgroundColor: (t) =>
-              t.palette.mode === "light"
-                ? t.palette.grey[50]
-                : t.palette.grey[900],
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square height={"500px"}>
           <Box
             sx={{
               my: 8,

@@ -14,55 +14,31 @@ function Articles() {
 
   useEffect(() => {
     GetArticleMany(setPostListAll)
-    console.log("here")
-    console.log(PostListAll)
     setPostList(PostListAll.slice(0, 2))
     // setPostListAll(PostListAll.slice())
   }, [PostListAll?.length])
 
   const handleSearch = (searchCriteria) => {
+    console.log(searchCriteria)
     const filteredResults = PostListAll.filter((post) => {
-      const regex = new RegExp(searchCriteria, "i")
-      return regex.test(post.title) || regex.test(post.content)
+      return post.title.includes(searchCriteria)
     })
-
+    console.log(filteredResults)
     setSearchResults(filteredResults)
   }
 
-  const allArticles = PostListAll.map((post) => {
+  const renderArticles = searchResults.length != 0 ? searchResults : PostListAll
+
+  const allArticles = renderArticles.map((post) => {
     return <PostData key={post.id} post={post} />
   })
 
-  useEffect(() => {
-    GetArticleMany(setPostListAll)
-    console.log("here")
-    console.log(PostListAll)
-    setPostList(PostListAll.slice(0, 2))
-  }, [PostListAll?.length])
-
   return (
     <div>
-      {/* <div className="articles-recent-title">
-        <p>
-          <b>Recent posts</b>
-        </p>
-        <Link to="/articles" state={location.state}>
-          View all
-        </Link>
-      </div> */}
       <div>
         <SearchComponent onSearch={handleSearch} />
       </div>
       <div className="allarticles">{allArticles}</div>
-      <div className="articles-posts">
-        {/* <div className="grid grid-cols-2 md:grid-cols-4 space-x-2 space-y-3 mt-5"> */}
-        {/* <h3>Blog</h3> */}
-        {PostListAll?.length === 0
-          ? "Data Loading..."
-          : PostListAll.map((post, index) => {
-              return <PostData post={post} index={index} inlist={true} />
-            })}
-      </div>
       <hr />
     </div>
   )
