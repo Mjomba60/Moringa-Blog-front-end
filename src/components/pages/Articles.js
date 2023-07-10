@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import React from "react"
 import PostData from "../utils/PostData"
-import { Link, useLocation } from "react-router-dom"
+import { useLocation } from "react-router-dom"
 import { GetArticleMany } from "../../api/api.js"
 import SearchComponent from "./Search"
 
@@ -27,7 +27,7 @@ function Articles() {
     setSearchResults(filteredResults)
   }
 
-  const renderArticles = searchResults.length != 0 ? searchResults : PostListAll
+  const renderArticles = searchResults.length !== 0 ? searchResults : PostListAll
 
   const allArticles = renderArticles.map((post) => {
     return <PostData key={post.id} post={post} />
