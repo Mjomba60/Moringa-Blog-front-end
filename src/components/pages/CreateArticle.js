@@ -62,7 +62,6 @@ export default function CreateArticle() {
   const [topicCategory, setTopicCategory] = useState([])
   const [currentUser, setCurrentUser] = useState(null)
   const [hasUser, setHasUser] = useState(false)
-  console.log(hasUser);
   const [resp, setResponse] = useState(null)
   const [editorState, setEditorState] = useState(EditorState.createEmpty())
 
@@ -118,7 +117,6 @@ export default function CreateArticle() {
         console.log(response.data.urls.regular)
         return setForm({
           ...form,
-          image_url: response.data.urls.regular,
           category: topic,
         })
       })
@@ -142,12 +140,6 @@ export default function CreateArticle() {
 
   const handleEditorChange = (state) => {
     setEditorState(state)
-    // console.log(convertToRaw(editorState.getCurrentContent()).blocks[0].text)
-    setForm({
-      ...form,
-      // body: convertToRaw(editorState.getCurrentContent()),
-      body: convertToRaw(editorState.getCurrentContent()).blocks[0].text,
-    })
   }
 
   // const handleSaveArticle = () => {
@@ -231,6 +223,7 @@ export default function CreateArticle() {
                   textAlign: `start`,
                 }}
               />
+              {/* <textarea
               {/* <textarea
                 name="body"
                 className="article-body"

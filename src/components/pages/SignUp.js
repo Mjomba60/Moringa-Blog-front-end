@@ -97,10 +97,10 @@ export default function SignUp() {
               fullWidth
               id="first_name"
               label="First Name"
-              name="first_name"
+              name="firstname"
               autoFocus
               onChange={onchange}
-              value={form.first_name || ""}
+              value={form.firstname || ""}
             />
 
             <TextField
@@ -109,10 +109,10 @@ export default function SignUp() {
               fullWidth
               id="last_name"
               label="Last Name"
-              name="last_name"
+              name="secondname"
               autoFocus
               onChange={onchange}
-              value={form.last_name || ""}
+              value={form.secondname || ""}
             />
 
             <TextField
@@ -121,10 +121,10 @@ export default function SignUp() {
               fullWidth
               id="user_name"
               label="User Name"
-              name="user_name"
+              name="username"
               autoFocus
               onChange={onchange}
-              value={form.user_name || ""}
+              value={form.username || ""}
             />
 
             <TextField
@@ -156,7 +156,9 @@ export default function SignUp() {
               required
               fullWidth
               name="password_confirmation"
+              name="password_confirmation"
               label="Confirm Password"
+              type="password"
               type="password"
               id="confirm_password"
               autoComplete="current-password"
