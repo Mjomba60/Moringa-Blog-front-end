@@ -1,6 +1,6 @@
 import React from "react"
 // import HOMEIMG from "../../assets/home-image.jpg"
-import { Link } from "react-router-dom"
+// import { Link } from "react-router-dom"
 
 import HomeData from "../utils/HomeData"
 import HomeData2 from "../utils/HomeData2"
