@@ -3,8 +3,8 @@ import axiosFetch from "../Axios"
 
 export const RegisterUser = (userData, setData, setError) => {
   axiosFetch()
-    // .post("/users", userData)
-    .post("/signup", userData)
+    .post("/users", userData)
+    // .post("/signup", userData)
     .then((response) => {
       console.log(response)
       setData(response)
@@ -104,12 +104,45 @@ export const CreateComment = (
       setLoading(false)
     })
 }
+
 // /articles/:article_id/comments/:comment_id
 
 export const DeleteComment = (article_id, comment_id, setLoading) => {
   setLoading(true)
   axiosFetch()
     .delete(`/articles/${article_id}/comments/${comment_id}`)
+    .then((response) => {
+      console.log(response.data)
+      // setCreateData(response)
+      setLoading(false)
+    })
+    .catch((error) => {
+      console.log(error)
+      setLoading(false)
+    })
+}
+
+// /articles/:id
+
+export const DeleteArticle = (article_id, setLoading) => {
+  setLoading(true)
+  axiosFetch()
+    .delete(`/articles/${article_id}`)
+    .then((response) => {
+      console.log(response)
+      // setCreateData(response)
+      setLoading(response)
+    })
+    .catch((error) => {
+      console.log(error)
+      setLoading(error)
+    })
+}
+
+export const DeleteUser = (user_id, setLoading) => {
+  setLoading(true)
+  axiosFetch()
+    .delete(`/users/${user_id}`)
     .then((response) => {
       console.log(response.data)
       // setCreateData(response)

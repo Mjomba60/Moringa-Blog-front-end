@@ -35,6 +35,7 @@ const MenuProps = {
 
 const categories = [
   "food",
+  "health",
   "sports",
   "education",
   "science",
@@ -60,6 +61,7 @@ export default function EditArticle() {
   const [topicCategory, setTopicCategory] = useState([])
   const [currentUser, setCurrentUser] = useState(null)
   const [hasUser, setHasUser] = useState(false)
+  console.log(hasUser)
   const [resp, setResponse] = useState(null)
 
   const location = useLocation()
@@ -95,7 +97,7 @@ export default function EditArticle() {
     }
     // console.log("in useffect")
     // console.log(resp)
-  }, [resp])
+  }, [location.state, navigate, paramsRoute.id, resp])
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -131,13 +133,17 @@ export default function EditArticle() {
         console.log(response.data.urls.regular)
         return setForm({
           ...form,
-          image_url: response.data.urls.regular,
+          image_url:
+            response.status === 200 ? `${response.data.urls.regular}` : "",
           category: topic,
         })
       })
   }
+
   const onchangeselect = (e) => {
     e.preventDefault()
+    const categry = e.target.value
+    RandomImage(categry)
     // const categry = e.target.value
     const {
       target: { value },
@@ -169,7 +175,7 @@ export default function EditArticle() {
             <DocumentScannerIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            CREATE YOUR ARTICLE
+            EDIT YOUR ARTICLE
           </Typography>
 
           <TextField
@@ -188,8 +194,9 @@ export default function EditArticle() {
           <FormControl fullWidth>
             <InputLabel id="demo-multiple-chip-label">Chip</InputLabel>
             <Select
-              labelId="demo-multiple-chip-label"
-              id="demo-multiple-chip"
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              name="category"
               value={topicCategory}
               label="Category"
               onChange={onchangeselect}

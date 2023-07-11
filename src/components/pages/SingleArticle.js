@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from "react"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
-import { AiFillLike, AiOutlineLike } from "react-icons/ai"
+import { AiFillLike } from "react-icons/ai"
 import { CreateComment, GetArticleSingle } from "../../api/api"
-import { DeleteComment, SendInteraction } from "../../api/api"
+import { DeleteComment, SendInteraction, DeleteArticle } from "../../api/api"
 import Chip from "@mui/material/Chip"
-import ThumbUpIcon from "@mui/icons-material/ThumbUp"
-import InstagramIcon from "@mui/icons-material/Instagram"
-import LinkedInIcon from "@mui/icons-material/LinkedIn"
-import LocalPostOfficeIcon from "@mui/icons-material/LocalPostOffice"
-import TwitterIcon from "@mui/icons-material/Twitter"
 
 function SingleArticle() {
   const location = useLocation()
@@ -21,6 +16,7 @@ function SingleArticle() {
   const [currentUser, setCurrentUser] = useState(null)
   const [createData, setCreateData] = useState(null)
   const [Data, setData] = useState(null)
+  console.log(Data)
   // const comments_data = [
   //   { comment: "Nice Post", by: "user1", time: "2 minute ago" },
   //   { comment: "Nice Post", by: "user1", time: "2 minute ago" },
@@ -30,6 +26,7 @@ function SingleArticle() {
   const [comments, setComments] = useState(null)
   const [loading, setLoading] = useState(false)
   const [loadingDelete, setLoadingDelete] = useState(null)
+  const [loadingDeleteArticle, setLoadingDeleteArticle] = useState(null)
   const [likes, setLikes] = useState([])
 
   useEffect(() => {
@@ -61,6 +58,8 @@ function SingleArticle() {
     if (createData?.status === 200) {
       GetArticleSingle(ArticleData?.id, setArticleData)
       console.log("no 4")
+      setForm({})
+      setCreateData(null)
     }
   }, [ArticleData?.id, createData?.status])
 
@@ -70,6 +69,26 @@ function SingleArticle() {
       console.log("no 5")
     }
   }, [ArticleData?.id, createData?.status, loadingDelete])
+
+  useEffect(() => {
+    if (loadingDeleteArticle?.status === 200) {
+      // GetArticleSingle(ArticleData?.id, setArticleData)
+      console.log(loadingDeleteArticle.data)
+      alert(loadingDeleteArticle.data.message)
+      setTimeout(() => {
+        navigate("/articles", {
+          state: { ...location.state, user: currentUser },
+          replace: true,
+        })
+      }, 1000)
+    }
+  }, [
+    currentUser,
+    loadingDeleteArticle?.data,
+    loadingDeleteArticle?.status,
+    location.state,
+    navigate,
+  ])
 
   const onchange = (e) => [
     setForm({
@@ -86,6 +105,7 @@ function SingleArticle() {
       }
       const data = await SendInteraction(ArticleData?.id, int_data)
       setData(data)
+      console.log(Data)
       setLikes(data.likes)
     } catch (error) {
       console.error(error)
@@ -105,6 +125,8 @@ function SingleArticle() {
   //     console.error(error);
   //   }
   // };
+
+  // DeleteArticle = (article_id, setLoading)
 
   return (
     <div className="singlearticle-majordiv">
@@ -160,6 +182,19 @@ function SingleArticle() {
           onClick={handleDislike}
           >{<AiOutlineLike />}</button> */}
           <button>{ArticleData?.category}</button>
+          {`${currentUser?.first_name}_${currentUser?.last_name}` ===
+          ArticleData?.author_name ? (
+            <Chip
+              label="delete article"
+              variant="outlined"
+              onDelete={(e) => {
+                e.preventDefault()
+                DeleteArticle(ArticleData?.id, setLoadingDeleteArticle)
+              }}
+            />
+          ) : (
+            ""
+          )}
         </div>
 
         <img
@@ -192,12 +227,12 @@ function SingleArticle() {
                 return (
                   <div className="comment-box-comment" key={index}>
                     <div className="comment-box-comment-user">
-                      <p>{comment.user.first_name}</p>
+                      <p>{comment.user?.first_name}</p>
                     </div>
                     <div>
                       <p>{comment.comments}</p>
                       <p>{`posted at: ${comment.created_at}`}</p>
-                      {currentUser?.id === comment.user.id ? (
+                      {currentUser?.id === comment.user?.id ? (
                         <Chip
                           label="delete comment"
                           variant="outlined"
@@ -205,7 +240,7 @@ function SingleArticle() {
                             e.preventDefault()
                             DeleteComment(
                               ArticleData?.id,
-                              comment.id,
+                              comment?.id,
                               setLoadingDelete
                             )
                           }}

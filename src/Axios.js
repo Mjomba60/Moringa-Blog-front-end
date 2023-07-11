@@ -7,7 +7,7 @@ const axiosFetch = () => {
   }
 
   const axiosInstance = axios.create({
-    baseURL: "http://localhost:3000",
+    baseURL: "http://localhost:9292",
     headers: headers,
   })
   axiosInstance.defaults.headers.common.accept = "application/json"
