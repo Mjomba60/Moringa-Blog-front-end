@@ -38,11 +38,13 @@ const MenuProps = {
 
 const categories = [
   "food",
+  "health",
   "sports",
   "education",
   "science",
   "Technology",
   "Programming",
+  "travel",
 ]
 
 function getStyles(name, personName, theme) {
@@ -62,7 +64,6 @@ export default function CreateArticle() {
   const [topicCategory, setTopicCategory] = useState([])
   const [currentUser, setCurrentUser] = useState(null)
   const [hasUser, setHasUser] = useState(false)
-
   const [resp, setResponse] = useState(null)
   const [editorState, setEditorState] = useState(EditorState.createEmpty())
 
@@ -107,7 +108,6 @@ export default function CreateArticle() {
   }
 
   const RandomImage = (topic) => {
-    console.log(topic)
     return axios
       .get("https://api.unsplash.com/photos/random", {
         params: {
@@ -124,25 +124,21 @@ export default function CreateArticle() {
         })
       })
   }
+
   const onchangeselect = (e) => {
     e.preventDefault()
     // const categry = e.target.value
+    // RandomImage(categry)
+
     const {
       target: { value },
     } = e
-    console.log(value)
     setTopicCategory(
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
-      // ...selected,
-      // [value]
     )
-    console.log(topicCategory)
     RandomImage(topicCategory)
   }
-  // const handleChange = (event: SelectChangeEvent) => {
-  //   setForm({ ...form, [event.target.name]: event.target.value })
-  // }
 
   const handleEditorChange = (state) => {
     setEditorState(state)
@@ -195,10 +191,11 @@ export default function CreateArticle() {
           <FormControl fullWidth>
             <InputLabel id="demo-multiple-chip-label">Chip</InputLabel>
             <Select
-              labelId="demo-multiple-chip-label"
-              id="demo-multiple-chip"
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              name="category"
               value={topicCategory}
-              label="category"
+              label="Category"
               onChange={onchangeselect}
               input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
               renderValue={(selected) => (
